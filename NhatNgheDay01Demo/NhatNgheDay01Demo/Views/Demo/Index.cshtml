@@ -1,4 +1,38 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Index";
 }
+
 <h1>Index - Demo</h1>
+<h2>Ôn tập C#</h2>
+<hr />
+@{
+
+    const int SO_LUONG = 6;
+
+    // Create new array of integer number with only 6 elements
+    var mangSo = new int[6];
+
+    // Create vietlotte with list of integer number
+    var vietlotte = new List<int>();
+
+    // Create random 
+    var random = new Random();
+
+    for(int i = 0; vietlotte.Count < SO_LUONG; i++)
+    {
+        // Add new element
+        var tmp = random.Next(1, 56);
+        // Check if already have the same element
+        if(!vietlotte.Contains(tmp))
+        {
+            vietlotte.Add(tmp);
+        }
+    }
+    vietlotte.Sort();
+}
+<h3>Kết quả xổ số</h3>
+@foreach(int item in vietlotte)
+{
+    <div>@item</div>
+}
