@@ -23,15 +23,19 @@
     {
         // Add new element
         var tmp = random.Next(1, 56);
+
         // Check if already have the same element
         if(!vietlotte.Contains(tmp))
         {
+            // Add new another element
             vietlotte.Add(tmp);
         }
     }
     vietlotte.Sort();
 }
 <h3>Kết quả xổ số</h3>
+
+<!-- Show the result -->
 @foreach(int item in vietlotte)
 {
     <div>@item</div>
