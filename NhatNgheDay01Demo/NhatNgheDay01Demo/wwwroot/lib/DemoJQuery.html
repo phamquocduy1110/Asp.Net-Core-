@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo JQuery</title>
+    <script src="jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function (e) {
+                // Remove default event
+                e.preventDefault();
+                alert('Click Button');
+            });
+
+            $("div").hover(function () {
+                $(this).hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <button>SAY HELLO</button>
+    <button>GOODBYE</button>
+    <div>HTML</div>
+    <div>CSS</div>
+    <div>jquery</div>
+    <div>bootstrap</div>
+</body>
+</html>
