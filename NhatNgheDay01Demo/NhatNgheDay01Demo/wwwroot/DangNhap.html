@@ -36,13 +36,15 @@
             return false;
         }
 
+        const dang_xuat = "Đăng xuất";
+
         $(document).ready(function () {
-            const dang_xuat === "Đăng xuất";
             // Make action for Login button
             $("#btn_Dang_Nhap").click(function () {
                 let user = $("#username");
                 let pass = $("#password");
-                if (user.val() === dang_xuat) {
+
+                if (user.val() == dang_xuat) {
                     $(this).html("Đăng nhập");
                     user.val('');
                     pass.val('');
@@ -59,7 +61,7 @@
                     $("#message").html("Username hoặc password không hợp lệ");
                     return;
                 }
-                if (user.val().length > 4 || pass.val().length > 6) {
+                if (user.val().length > 4 && pass.val().length > 6) {
                     $("#message").html("Đăng nhập thành công");
                     $(this).html(dang_xuat);
                     return;
