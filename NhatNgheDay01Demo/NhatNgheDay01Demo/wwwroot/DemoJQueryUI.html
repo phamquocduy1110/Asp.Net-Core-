@@ -6,6 +6,23 @@
     <link href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
+    <div id="mytab">
+        <ul>
+            <li>
+                <a href="#tab1">Thông số kỹ thuật</a>
+            </li>
+            <li>
+                <a href="#tab2">Hình ảnh</a>
+            </li>
+            <li>
+                <a href="#tab3">Video đập hộp</a>
+            </li>
+        </ul>
+        <!--Content-->
+        <div id="tab1">TAB 1</div>
+        <div id="tab2">TAB 2</div>
+        <div id="tab3">TAB 3</div>
+    </div>
     <div>
        Từ ngày: <input id="TuNgay"/>
        Đến ngày: <input id="DenNgay"/>
@@ -16,6 +33,8 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script>
         $(function () {
+            $("#mytab").tabs();
+
             $("#TuNgay").datepicker({
                 maxDate: "0",
                 dateFormat: "dd-mm-yy",
