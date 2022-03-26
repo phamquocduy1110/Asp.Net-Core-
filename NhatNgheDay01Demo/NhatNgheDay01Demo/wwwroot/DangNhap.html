@@ -8,14 +8,68 @@
     <h2>Đăng nhập</h2>
     <div>
         Username
-        <input type="text" id="username" placeholder="Nhập tên đăng nhập"/>
+        <input type="text" id="username" placeholder="Nhập tên đăng nhập" />
     </div>
     <div>
         Password
-        <input type="password" id="password" placeholder="Nhập mật khẩu"/>
+        <input type="password" id="password" placeholder="Nhập mật khẩu" />
     </div>
-    <button type="button">Đăng nhập</button>
+    <button type="button" id="btn_Dang_Nhap">Đăng nhập</button>
     <div id="message"></div>
-    <script src="jquery/dist/jquery.min.js"></script>
+    <style>
+        .empty {
+            background-color: yellow;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script>
+        function checkEmpty(element) {
+            element.removeClass("empty");
+            if (element.val().length == 0) {
+                element.addClass("empty");
+                return true;
+            }
+            return false;
+        }
+
+        $(document).ready(function () {
+            const dang_xuat === "Đăng xuất";
+            // Make action for Login button
+            $("#btn_Dang_Nhap").click(function () {
+                let user = $("#username");
+                let pass = $("#password");
+                if (user.val() === dang_xuat) {
+                    $(this).html("Đăng nhập");
+                    user.val('');
+                    pass.val('');
+                    return;
+
+                }
+                // Check if one of both textbox is empty
+                if (checkEmpty(user) || checkEmpty(pass)) {
+                    $("#message").html("Username hoặc password còn trống");
+                    return;
+                }
+                // Check validation of both textbox
+                if (user.val().length < 4 || pass.val().length < 6) {
+                    $("#message").html("Username hoặc password không hợp lệ");
+                    return;
+                }
+                if (user.val().length > 4 || pass.val().length > 6) {
+                    $("#message").html("Đăng nhập thành công");
+                    $(this).html(dang_xuat);
+                    return;
+                }
+                else {
+                    // If all textbox are avaiable, the message will not show
+                    $("#message").html("");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
