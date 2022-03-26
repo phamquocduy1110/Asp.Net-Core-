@@ -25,17 +25,51 @@
     </div>
     <br />
     <div>
-       Từ ngày: <input id="TuNgay"/>
-       Đến ngày: <input id="DenNgay"/>
+        Từ ngày: <input id="TuNgay" />
+        Đến ngày: <input id="DenNgay" />
     </div>
-
+    <br />
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
     <!-- Script File -->
     <script src="https://releases.jquery.com/git/jquery-3.x-git.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script>
         $(function () {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $("#tags").autocomplete({
+                source: availableTags
+            });
+
+            // Using tabs
             $("#mytab").tabs();
 
+            // Using date picker
             $("#TuNgay").datepicker({
                 maxDate: "0",
                 dateFormat: "dd-mm-yy",
@@ -43,6 +77,8 @@
                 changeYear: true,
                 yearRange: "-55:+00",
             });
+
+            // Using date picker
             $("#DenNgay").datepicker({
                 maxDate: "0",
                 dateFormat: "dd-mm-yy",
