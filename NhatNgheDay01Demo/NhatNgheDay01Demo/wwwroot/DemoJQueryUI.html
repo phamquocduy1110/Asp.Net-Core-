@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="mytab">
+        <ul>
+            <li>
+                <a href="#tab1">Thông số kỹ thuật</a>
+            </li>
+            <li>
+                <a href="#tab2">Hình ảnh</a>
+            </li>
+            <li>
+                <a href="#tab3">Video đập hộp</a>
+            </li>
+        </ul>
+        <!--Content-->
+        <div id="tab1">TAB 1</div>
+        <div id="tab2">TAB 2</div>
+        <div id="tab3">TAB 3</div>
+    </div>
+    <br />
+    <div>
+        Từ ngày: <input id="TuNgay" />
+        Đến ngày: <input id="DenNgay" />
+    </div>
+    <br />
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
+    <!-- Script File -->
+    <script src="https://releases.jquery.com/git/jquery-3.x-git.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $("#tags").autocomplete({
+                source: availableTags
+            });
+
+            // Using tabs
+            $("#mytab").tabs();
+
+            // Using date picker
+            $("#TuNgay").datepicker({
+                maxDate: "0",
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-55:+00",
+            });
+
+            // Using date picker
+            $("#DenNgay").datepicker({
+                maxDate: "0",
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1970:2022",
+            });
+        });
+    </script>
+</body>
+</html>
