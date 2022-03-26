@@ -6,7 +6,31 @@
     <link href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
+    <div>
+       Từ ngày: <input id="TuNgay"/>
+       Đến ngày: <input id="DenNgay"/>
+    </div>
+
+    <!-- Script File -->
     <script src="https://releases.jquery.com/git/jquery-3.x-git.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#TuNgay").datepicker({
+                maxDate: "0",
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-55:+00",
+            });
+            $("#DenNgay").datepicker({
+                maxDate: "0",
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1970:2022",
+            });
+        });
+    </script>
 </body>
 </html>
