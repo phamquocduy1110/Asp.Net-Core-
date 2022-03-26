@@ -11,6 +11,8 @@
     </style>
 </head>
 <body>
+    <!-- Tags-->
+    <h1>Bootstrap Tags</h1>
     <div class="container-fluid" id="main">
         <div class="row">
             <div class="col-md-6 col-lg-5 col-xxl-2 bg-primary">MD-6</div>
@@ -18,13 +20,101 @@
             <div class="col-md-6 col-lg-5 col-xxl-2 bg-danger">MD-6</div>
         </div>
     </div>
-    <br />
+
+    <!-- Table-->
+    <h1>Bootstrap Table</h1>
+    <div class="container mt-3">
+        <h2>Contextual Classes</h2>
+        <p>Contextual classes can be used to color the table, table rows or table cells. The classes that can be used are: .table-primary, .table-success, .table-info, .table-warning, .table-danger, .table-active, .table-secondary, .table-light and .table-dark:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Default</td>
+                    <td>Defaultson</td>
+                    <td>def@somemail.com</td>
+                </tr>
+                <tr class="table-primary">
+                    <td>Primary</td>
+                    <td>Joe</td>
+                    <td>joe@example.com</td>
+                </tr>
+                <tr class="table-success">
+                    <td>Success</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr class="table-danger">
+                    <td>Danger</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                </tr>
+                <tr class="table-info">
+                    <td>Info</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                </tr>
+                <tr class="table-warning">
+                    <td>Warning</td>
+                    <td>Refs</td>
+                    <td>bo@example.com</td>
+                </tr>
+                <tr class="table-active">
+                    <td>Active</td>
+                    <td>Activeson</td>
+                    <td>act@example.com</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td>Secondary</td>
+                    <td>Secondson</td>
+                    <td>sec@example.com</td>
+                </tr>
+                <tr class="table-light">
+                    <td>Light</td>
+                    <td>Angie</td>
+                    <td>angie@example.com</td>
+                </tr>
+                <tr class="table-dark">
+                    <td>Dark</td>
+                    <td>Bo</td>
+                    <td>bo@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button-->
+    <h1>Bootstrap Button</h1>
     <div>
         <button class="btn btn-primary">primary</button>
         <button class="btn btn-info">info</button>
         <a class="btn btn-danger">danger</a>
         <a class="btn btn-success">success</a>
     </div>
+
+    <!-- Dropdown-->
+    <h1>Dropdown Button</h1>
+    <div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Link 1</a></li>
+            <li><a class="dropdown-item" href="#">Link 2</a></li>
+            <li><a class="dropdown-item" href="#">Link 3</a></li>
+        </ul>
+    </div>
+    <br />
+
+    <!-- Script File-->
     <script src="lib/bootstrap/bootstrap-5.1.3-dist/bootstrap-5.1.3-dist/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
 </html>
