@@ -9,14 +9,16 @@
 <h2>Máy tính cá nhân</h2>
 
 <form asp-action="Calculate" asp-controller="Calculator" method="post">
-    <input name="a" placeholder="Toán hạng a"/>
+    <input name="a" placeholder="Toán hạng a" required/>
     <select name="op">
         <option>+</option>
         <option>-</option>
         <option>X</option>
         <option>:</option>
+        <option>^</option>
+        <option>%</option>
     </select>
-    <input name="b" placeholder="Toán hạng b"/>
+    <input name="b" placeholder="Toán hạng b" required/>
     <input type="submit" value=" = "/>
 
     <!-- Show the final result -->

@@ -1,9 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NhatNgheDay01Demo.Models;
 
 namespace NhatNgheDay01Demo.Controllers
 {
     public class DemoController : Controller
     {
+        public IActionResult Manage()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult Manage(SinhVien model)
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -11,7 +23,6 @@ namespace NhatNgheDay01Demo.Controllers
 
         // /Demo/Hello
         // /Demo/Hello?ten=NhatNghe // routing default
-
         [HttpGet("Chao")]
         [HttpGet("/Hello")]
         [HttpGet("/Hello/{ten}")]

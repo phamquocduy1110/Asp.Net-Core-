@@ -27,6 +27,13 @@ namespace NhatNgheDay01Demo.Controllers
                 case ':':
                     ViewBag.KetQua = a / b;
                     break;
+                case '^':
+                    ViewBag.KetQua = Math.Pow(a, b);
+                    break;
+                case '%':
+                    ViewBag.KetQua = a % b;
+                    break;
+    
             }
             
             // Show the final result to Index View
