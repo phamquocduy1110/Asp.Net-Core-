@@ -14,3 +14,20 @@
 }
 <h4>Đã hoạt động: @soNamHoatDong năm</h4>
 <h5>Đã hoạt động: năm</h5>
+<h4>Sử dụng ViewBang</h4>
+<dl>
+    <dd>@ViewBag.HangHoa.ProductName</dd>
+    <dd>Giá: @ViewBag.HangHoa.Price</dd>
+    <dd>Số lượng: @ViewBag.HangHoa.Quantity</dd>
+    <dd>Tổng tiền: @ViewBag.HangHoa.Total</dd>
+</dl>
+<h4>Sử dụng TempData</h4>
+@{
+    var hanghoa = TempData["hanghoa"] as Product;
+}
+<dl>
+    <dd>@hanghoa.ProductName</dd>
+    <dd>Giá: @hanghoa.Price</dd>
+    <dd>Số lượng: @hanghoa.Quantity</dd>
+    <dd>Tổng tiền: @hanghoa.Total</dd>
+</dl>
