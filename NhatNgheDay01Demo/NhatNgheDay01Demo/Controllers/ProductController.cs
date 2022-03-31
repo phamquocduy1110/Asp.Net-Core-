@@ -27,5 +27,22 @@ namespace NhatNgheDay01Demo.Controllers
         {
             return View(Products);
         }
+
+        [HttpGet]
+        public IActionResult Edit(Guid id)
+        {
+            var product = Products.SingleOrDefault(item => item.Id == id);
+            if(product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Guid id, Product model)
+        {
+            return View();
+        }
     }
 }

@@ -36,7 +36,7 @@
         {
             <tr>
                 <td>
-                    @item.Id
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
                     @item.ProductName
@@ -51,8 +51,8 @@
                     @item.Total
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-controller="Product" id="@item.Id">Sửa</a>
-                    <a asp-action="Delete" asp-controller="Product" id="@item.Id">Xóa</a>
+                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.Id">Sửa</a>
+                    <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id">Xóa</a>
                 </td>
             </tr>
         }
