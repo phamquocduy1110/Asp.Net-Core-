@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Máy tính Cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Máy tính cá nhân</h2>
+
+<form asp-action="Calculate" asp-controller="Calculator" method="post">
+    <input name="a" placeholder="Toán hạng a" required/>
+    <select name="op">
+        <option>+</option>
+        <option>-</option>
+        <option>X</option>
+        <option>:</option>
+        <option>^</option>
+        <option>%</option>
+    </select>
+    <input name="b" placeholder="Toán hạng b" required/>
+    <input type="submit" value=" = "/>
+
+    <!-- Show the final result -->
+    <input placeholder="Kết quả" value="@ViewBag.KetQua"/>
+</form>
+
+<h3 style="color: green; margin-top: 10px;">Kết quả cuối cùng là: @ViewBag.KetQua</h3>
