@@ -6,11 +6,9 @@ namespace NhatNgheDay01Demo.Models
     public class StudentInfo
     {
         [Display(Name = "Mã sinh viên")]
-        [Required(ErrorMessage = "*")]
         public string StudentId { get; set; }
 
         [Display(Name = "Họ tên sinh viên")]
-        [Required(ErrorMessage = "*")]
         [MinLength(5, ErrorMessage = "Tên sinh viên phải tối thiểu 5 ký tự")]
         public string FullName { get; set; }
 
@@ -19,6 +17,26 @@ namespace NhatNgheDay01Demo.Models
         public double Grade { get; set; }
 
         [Display(Name = "Xếp loại")]
-        public string Rating { get; set; }
+        public string? Rating {
+            get
+            {
+                if (Grade < 5)
+                {
+                    return "Kém";
+                }
+                else if (Grade < 7)
+                {
+                    return "Trung bình";
+                }
+                else if (Grade < 8.5)
+                {
+                    return "Khá";
+                }
+                else
+                {
+                    return "Giỏi";
+                }
+            }
+        }
     }
 }
