@@ -5,7 +5,7 @@ namespace NhatNgheDay01Demo.Controllers
 {
     public class ProductController : Controller
     {
-        private List<Product> Products = new List<Product>()
+        private static List<Product> Products = new List<Product>()
         {
             new Product
             {
@@ -42,6 +42,16 @@ namespace NhatNgheDay01Demo.Controllers
         [HttpPost]
         public IActionResult Edit(Guid id, Product model)
         {
+            var product = Products.SingleOrDefault(item => item.Id == id);
+            if (product != null)//có
+            {
+                product.ProductName = model.ProductName;
+                product.Price = model.Price;
+                product.Quantity = model.Quantity;
+
+                //return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
     }
