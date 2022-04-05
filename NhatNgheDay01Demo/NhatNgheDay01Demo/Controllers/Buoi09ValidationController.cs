@@ -6,6 +6,27 @@ namespace NhatNgheDay01Demo.Controllers
 {
     public class Buoi09ValidationController : Controller
     {
+        [HttpGet]
+        public IActionResult CreateEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEmployee(Employee emp)
+        {
+            if(ModelState.IsValid)
+            {
+                // Error warning by user define
+                ModelState.AddModelError("AAA", "Thành công");
+            }
+            else
+            {
+                ModelState.AddModelError("AAA", "Thất bại");
+            }
+            return View();
+        }
+
         public IActionResult DemoAsyncRun()
         {
             Stopwatch sw = new Stopwatch();

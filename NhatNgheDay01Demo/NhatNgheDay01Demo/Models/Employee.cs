@@ -16,7 +16,22 @@ namespace NhatNgheDay01Demo.Models
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
 
+        [Compare("Email", ErrorMessage = "Email không khớp")]
+        public string? ConfirmEmail { get; set; }
+
         [DataType(DataType.Url)]
         public string? Website { get; set; }
+
+        public bool Gender { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "Lưa chưa hợp lệ")]
+        public double Salary { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        public double Phone { get; set; }
+
+        [MaxLength(255)]
+        [DataType(DataType.MultilineText)]
+        public string? Description { get; set; }
     }
 }
