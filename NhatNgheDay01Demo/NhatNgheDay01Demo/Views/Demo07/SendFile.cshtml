@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "SendFile";
+}
+
+<h1>SendFile</h1>
+<form asp-action="UploadSingleFile" enctype="multipart/form-data">
+    <h2>SEND ONE FILE</h2>
+    <input type="file" name="myfile"/>
+    <button class="btn btn-success">SEND</button>
+</form>
+<form asp-action="UploadMultipleFile" enctype="multipart/form-data">
+    <h2>SEND MULTI FILE</h2>
+    <input type="file" name="myfiles" multiple/>
+    <button class="btn btn-success">SEND</button>
+</form>
