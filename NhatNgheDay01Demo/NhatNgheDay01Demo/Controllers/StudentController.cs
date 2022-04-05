@@ -40,5 +40,39 @@ namespace NhatNgheDay01Demo.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult ReadData(string type)
+        {
+            try
+            {
+                if (type == "JSON")
+                {
+                    var json_data = System.IO.File.ReadAllText(PathTxtFile);
+                    var student = System.Text.Json.JsonSerializer.Deserialize<StudentInfo>(json_data);
+                    return View("Index", student);
+                }
+                else if (type == "TXT")
+                {
+                    var lines = System.IO.File.ReadAllLines(PathTxtFile);
+                    var student = new StudentInfo
+                    {
+                        StudentId = lines[0],
+                        FullName = lines[1],
+                        Grade = double.Parse(lines[2]),
+
+                    };
+                    return View("Index", student);
+                }
+                ViewBag.ErrorMessage = $"Chưa hỗ trợ loại: {type}";
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = $"Lỗi: {ex.Message}";
+                return View("Index");
+
+            }
+        }
     }
 }
