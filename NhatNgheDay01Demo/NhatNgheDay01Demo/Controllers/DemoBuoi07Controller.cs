@@ -5,6 +5,30 @@ namespace NhatNgheDay01Demo.Controllers
 {
     public class Demo07Controller : Controller
     {
+        public IActionResult SendFile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UploadSingleFile(IFormFile myfile)
+        {
+            if(myfile != null)
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data");
+                if(!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                var pathFile = Path.Combine(path, myfile.FileName);
+                using (var newFile = new FileStream(pathFile, FileMode.Create))
+                {
+                    myfile.CopyTo(newFile);
+                }
+            }
+            return View("SendFile");
+        }
+
         public IActionResult Index()
         {
             ViewBag.HoTen = "Nhất Nghệ";

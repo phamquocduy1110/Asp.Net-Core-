@@ -23,16 +23,16 @@ namespace NhatNgheDay01Demo.Controllers
 
         // /Demo/Hello
         // /Demo/Hello?ten=NhatNghe // routing default
-        [HttpGet("Chao")]
+        /*[HttpGet("Chao")]
         [HttpGet("/Hello")]
-        [HttpGet("/Hello/{ten}")]
+        [HttpGet("/Hello/{ten}")]*/
         public string Hello(string ten)
         {
             return $"Hello {ten}.";
         }
 
         // Demo friendly URL/SEO
-        [HttpGet("/{loai}/{hanghoa}")]
+        /*[HttpGet("/{loai}/{hanghoa}")]*/
         public string LayHangHoa(string loai, string hanghoa)
         {
             return $"Loại: {loai}/hàng hóa: {hanghoa}";
