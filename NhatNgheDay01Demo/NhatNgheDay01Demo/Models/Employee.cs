@@ -24,6 +24,10 @@ namespace NhatNgheDay01Demo.Models
 
         public bool Gender { get; set; }
 
+        [Display(Name = "Ngày sinh")]
+        [CheckBirthdate]
+        public DateTime? Birthdate { get; set; }
+
         [Range(0, double.MaxValue, ErrorMessage = "Lưa chưa hợp lệ")]
         public double Salary { get; set; }
 
