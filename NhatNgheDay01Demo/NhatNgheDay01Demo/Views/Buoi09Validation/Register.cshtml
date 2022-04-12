@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<form asp-action="Register" id="FormRegister">
+    <div class="form-group">
+        Name: <input name="FullName" />
+    </div>
+    <div class="form-group">
+        Age: <input name="Age" />
+    </div>
+    <button>Register</button>
+    <button type="reset">Reset</button>
+</form>
+@section Scripts {
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#FormRegister").validate({
+            rules: {
+                FullName: {
+                    required: true, minlength: 6
+                },
+                Age: {
+                    required: true, digits: true, range: [18, 60]
+                },
+            },
+            message: {
+                /// This message will get message default if it doesn't have any code here
+                FullName: {
+                    required: "*", minlength: "Tối thiểu 6 kí tự"
+                },
+                Age: {
+                    digits: "Nhập số nguyên",
+                    range: "Từ 18...60"
+                },
+            }
+        });
+    });
+</script>
+}
