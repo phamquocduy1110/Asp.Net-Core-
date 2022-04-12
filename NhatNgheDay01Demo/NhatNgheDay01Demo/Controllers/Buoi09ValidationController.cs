@@ -6,6 +6,11 @@ namespace NhatNgheDay01Demo.Controllers
 {
     public class Buoi09ValidationController : Controller
     {
+        public IActionResult DangKy()
+        {
+            return View();
+        }
+
         public IActionResult Register()
         {
             return View();
