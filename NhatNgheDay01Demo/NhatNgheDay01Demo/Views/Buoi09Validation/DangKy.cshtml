@@ -5,9 +5,7 @@
     ViewData["Title"] = "DangKy";
 }
 
-<h1>Đăng Ký Thành Viên</h1>
-
-<form>
+<form id="formDangKy">
     <h2 class="text-center text-danger">
         Đăng ký Thành viên
     </h2>
@@ -27,6 +25,12 @@
         <div class="col-4 col-md-3 text-right">Ngày sinh</div>
         <div class="col-8 col-md-9">
             <input name="NgaySinh" class="w-100" />
+        </div>
+    </div>
+    <div class="row m-1">
+        <div class="col-4 col-md-3 text-right">Điện Thoại</div>
+        <div class="col-8 col-md-9">
+            <input name="DienThoai" placeholder="Điện thoại" class="w-100" />
         </div>
     </div>
     <div class="row m-1">
@@ -68,7 +72,7 @@
     <div class="row m-1">
         <div class="col-4 col-md-3 text-right">Mã bảo mật</div>
         <div class="col-8 col-md-9">
-            <span></span>
+            <span class="text-danger">@ViewBag.MaNgauNhien</span>
             <input name="MaBaoMat" placeholder="Mã bảo mật" class="w-100" />
         </div>
     </div>
@@ -86,10 +90,51 @@
         </div>
     </div>
 </form>
-
+<style>
+    .error {
+        color: red;
+    }
+</style>
 @section Scripts {
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+<script>
+    /// [a-z]+: Tối thiểu 1 ký tự
+    /// * : Từ 0 --> n
+    /// [.-][a-z]
 
+    ///
+    function LabGmail(value, element) {
+        /// Create a value to define the correct email
+        const pattern = /^[a-z]+([.-][a-z]+)*@@gmail.com$/g;
+        return this.optional(element) || pattern.test(value);
+    }
+
+    function CheckPhoneNumber(value, element) {
+        /// Create a value to define the correct email
+        const pattern = /^((0[789]\d{8})|(05[789]\d{7}))$/g;
+        return this.optional(element) || pattern.test(value);
+    }
+
+    $.validator.addMethod("gmail", LabGmail, "Chưa đúng định dạng Gmail");
+    $.validator.addMethod("vnmobilephone", CheckPhoneNumber, "Chưa đúng định dạng số di động Việt Nam");
+
+    $(document).ready(function() {
+        $("#formDangKy").validate({
+            rules: {
+                DienThoai: { vnmobilephone: true},
+                Email: { email: true, required: true,  gmail: true },
+                XacNhanEmail: {equalTo: "input[name='Email']" },  gmail: true,
+                Hinh: { extension: "jpg|png|gif" },
+                MaBaoMat: { remote: "/Buoi09Validation/CheckSecurityCode"},
+
+            },
+            messages: {
+                XacNhanEmail: { equalTo: "Email không khớp" },
+                Hinh: { extension: "Chỉ chấp nhận file jpg, png, gif" },
+            },
+        });
+    });
+</script>
 }

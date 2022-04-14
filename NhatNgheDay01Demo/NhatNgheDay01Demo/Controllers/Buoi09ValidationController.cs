@@ -6,9 +6,21 @@ namespace NhatNgheDay01Demo.Controllers
 {
     public class Buoi09ValidationController : Controller
     {
+        const string MaNgauNhien = "MaNgauNhien";
+
         public IActionResult DangKy()
         {
+            var chuoiNgauNhien = MyTool.GenerateSecurityCode();
+            HttpContext.Session.SetString(MaNgauNhien, chuoiNgauNhien);
+
+            ViewBag.MaNgauNhien = chuoiNgauNhien;
             return View();
+        }
+
+        public IActionResult CheckSecurityCode(string MaBaoMat)
+        {
+            var result = HttpContext.Session.GetString(MaNgauNhien) == MaBaoMat ? "true" : "false";
+            return Content(result);
         }
 
         public IActionResult Register()
@@ -17,7 +29,7 @@ namespace NhatNgheDay01Demo.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string Name, int Age)
+        public IActionResult Register(string FullName, int Age)
         {
             return View();
         }
