@@ -6,6 +6,50 @@ namespace NhatNgheDay01Demo.Controllers
 {
     public class Buoi09ValidationController : Controller
     {
+        const string MaNgauNhien = "MaNgauNhien";
+
+        public IActionResult DangKy()
+        {
+            var chuoiNgauNhien = MyTool.GenerateSecurityCode();
+            HttpContext.Session.SetString(MaNgauNhien, chuoiNgauNhien);
+
+            ViewBag.MaNgauNhien = chuoiNgauNhien;
+            return View();
+        }
+
+        public IActionResult CheckSecurityCode(string MaBaoMat)
+        {
+            var result = HttpContext.Session.GetString(MaNgauNhien) == MaBaoMat ? "true" : "false";
+            return Content(result);
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(string FullName, int Age)
+        {
+            return View();
+        }
+
+        public IActionResult CheckValidEmployeeId(string EmployeeId)
+        {
+            var empInDatabase = new List<string>()
+            {
+                "admin", "guest", "nhatnghe", "aspnet", "NV77777"
+            };
+            if (empInDatabase.Contains(EmployeeId))
+            {
+                return Json(false);
+            }
+            else
+            {
+                return Json(true);
+            }
+        }
+
         [HttpGet]
         public IActionResult CreateEmployee()
         {
@@ -15,7 +59,7 @@ namespace NhatNgheDay01Demo.Controllers
         [HttpPost]
         public IActionResult CreateEmployee(Employee emp)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // Error warning by user define
                 ModelState.AddModelError("AAA", "Thành công");

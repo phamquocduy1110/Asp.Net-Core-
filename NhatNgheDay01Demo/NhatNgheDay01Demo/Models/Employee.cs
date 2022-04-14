@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace NhatNgheDay01Demo.Models
 {
@@ -9,6 +10,7 @@ namespace NhatNgheDay01Demo.Models
 
         [Display(Name = "Mã nhân viên")]
         [RegularExpression(@"NV\d{5}", ErrorMessage = "Đúng định dạng NVxxxxx")]
+        [Remote(controller: "Buoi09Validation", action: "CheckValidEmployeeId")]
         public string? EmployeeId { get; set; }
 
         public string? FullName { get; set; }
@@ -23,6 +25,10 @@ namespace NhatNgheDay01Demo.Models
         public string? Website { get; set; }
 
         public bool Gender { get; set; }
+
+        [Display(Name = "Ngày sinh")]
+        [CheckBirthdate]
+        public DateTime? Birthdate { get; set; }
 
         [Range(0, double.MaxValue, ErrorMessage = "Lưa chưa hợp lệ")]
         public double Salary { get; set; }
