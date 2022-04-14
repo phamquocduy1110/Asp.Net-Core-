@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/MyStyleSheet.css" rel="stylesheet" />
+    @RenderSection("Styles", required: false);
+</head>
+<body>
+    <div class="container">
+        <header id="myheader">#MY HEADER</header>
+        <div class="row m-0">
+            <aside class="col-3"></aside>
+            @await Html.PartialAsync("DanhSach")
+            <div class="col-9 mycontent">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="text-center p-2 text-danger">Bản quyền thuộc về Phạm Quốc Duy</footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    @RenderSection("Scripts", required: false);
+
+</body>
+</html>
