@@ -13,5 +13,14 @@ namespace NhatNgheDay01Demo.Controllers
         {
             return View();
         }
+
+        public IActionResult DanhSach()
+        {
+            var danhSach = new string[]
+            {
+                "Bia", "Nước ngot", "Cafe"
+            };
+            return PartialView("Category", danhSach);
+        }
     }
 }
