@@ -13,10 +13,15 @@
         <header id="myheader">#MY HEADER</header>
         <div class="row m-0">
             <aside class="col-3"></aside>
-            @await Html.PartialAsync("DanhSach")
 
             @{
-                
+                var danhSach = new String[]
+                {
+                "Bia", "Cafe", "Tra"
+                };
+                @await Html.PartialAsync("DanhSach", danhSach)
+
+                @await Component.InvokeAsync("CategoryMenu")
             }
             <div class="col-9 mycontent">
                 @RenderBody()
