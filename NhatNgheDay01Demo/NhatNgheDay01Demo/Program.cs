@@ -1,8 +1,13 @@
+using NhatNgheDay01Demo.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
+// Register repository
+// Life cycle of Dependency Injection: Singleton, Transient, Scoped
+builder.Services.AddTransient<ICategory, MockCategory>();
 
 var app = builder.Build();
 
@@ -22,6 +27,11 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    /// Define are routing
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
