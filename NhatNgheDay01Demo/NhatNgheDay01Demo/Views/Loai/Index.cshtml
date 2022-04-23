@@ -1,0 +1,52 @@
+﻿@model IEnumerable<NhatNgheDay01Demo.Models.Loai>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Loại</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaLoai" class="btn btn-success">Sửa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
