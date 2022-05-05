@@ -37,9 +37,9 @@ namespace Buoi17_First.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+/*#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=DESKTOP-2TJNS3V\\MSSQL2019;Database=eStore20;Integrated Security=True;");
-            }
+*/            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -203,11 +203,13 @@ namespace Buoi17_First.Entities
                 entity.HasOne(d => d.MaLoaiNavigation)
                     .WithMany(p => p.HangHoas)
                     .HasForeignKey(d => d.MaLoai)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Products_Categories");
 
                 entity.HasOne(d => d.MaNccNavigation)
                     .WithMany(p => p.HangHoas)
                     .HasForeignKey(d => d.MaNcc)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Products_Suppliers");
             });
 
