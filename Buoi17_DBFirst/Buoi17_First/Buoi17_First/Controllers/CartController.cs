@@ -65,5 +65,19 @@ namespace Buoi17_First.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult RemoveCart(int id)
+        {
+            var gioHang = Carts;
+            var item = gioHang.SingleOrDefault(hh => hh.MaHh == id);
+
+            if(item != null)
+            {
+                gioHang.Remove(item);
+            }
+            HttpContext.Session.Set(MY_CART_KEY, gioHang);
+
+            return RedirectToAction("Index");
+        }
     }
 }

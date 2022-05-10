@@ -27,7 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ThanhTien)
             </th>
-            <th></th>
+            <th>
+                Tùy chỉnh
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -52,9 +54,7 @@
                 @Html.DisplayFor(modelItem => item.ThanhTien)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="RemoveCart" asp-route-id="@item.MaHh" class="btn btn-danger">Xóa</a>
             </td>
         </tr>
 }
