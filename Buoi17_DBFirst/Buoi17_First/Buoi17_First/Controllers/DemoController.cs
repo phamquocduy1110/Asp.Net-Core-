@@ -2,12 +2,46 @@
 using Buoi17_First.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 
 namespace Buoi17_First.Controllers
 {
     public class DemoController : Controller
     {
         private readonly eStore20Context _context;
+
+        public DemoController(eStore20Context context)
+        {
+            _context = context;
+        }
+
+        public IActionResult DemoSession()
+        {
+            var loai = new Loai
+            {
+                MaLoai = 111,
+                TenLoai = "Bia 333"
+            };
+            HttpContext.Session.SetString("MyString", "Trung tâm Đào tạo CNTT Nhất Nghệ");
+            HttpContext.Session.SetInt32("MyInt", 19);
+            HttpContext.Session.Set<Loai>("MyBeer", loai);
+            return View();
+        }
+
+        public IActionResult DemoExtensionMethod()
+        {
+            var luckyNumber = new Random().Next(1000);
+
+            var result = new StringBuilder();
+            result.AppendLine($"{luckyNumber} la so nguyen to: {luckyNumber.IsPrime()}");
+
+            var le_2_9 = new DateTime(2022, 9, 2);
+            result.AppendLine($"{le_2_9.KhoangCachNgay(DateTime.Now)} ngày lễ Quốc Khánh");
+
+            return Content(result.ToString());
+
+        }
 
         public IActionResult ThongKe()
         {
@@ -58,12 +92,6 @@ namespace Buoi17_First.Controllers
             });
 
             return Json(data);
-        }
-
-
-        public DemoController(eStore20Context context)
-        {
-            _context = context;
         }
 
         /// <summary>

@@ -47,6 +47,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn btn-success">MUA</a>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MaHh)
             </td>
             <td>
