@@ -25,7 +25,7 @@ namespace Buoi17_First.Models
         }
 
         [HttpPost]
-        public IActionResult TimKiem(string? Keyword, double? FormPrice, double? ToPrice)
+        public IActionResult TimKiem(string Keyword, double? FormPrice, double? ToPrice)
         {
             var dsHangHoa = _context.HangHoas.AsQueryable();
             /*

@@ -15,6 +15,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<eStore20Context>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("eStore20")));
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(2);
+    option.Cookie.HttpOnly = true;
+    option.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -34,6 +40,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

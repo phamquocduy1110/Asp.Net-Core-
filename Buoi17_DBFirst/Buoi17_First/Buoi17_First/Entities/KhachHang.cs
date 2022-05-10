@@ -8,6 +8,7 @@ namespace Buoi17_First.Entities
         public KhachHang()
         {
             BanBes = new HashSet<BanBe>();
+            HoaDons = new HashSet<HoaDon>();
             YeuThiches = new HashSet<YeuThich>();
         }
 
@@ -24,6 +25,7 @@ namespace Buoi17_First.Entities
         public int VaiTro { get; set; }
 
         public virtual ICollection<BanBe> BanBes { get; set; }
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
         public virtual ICollection<YeuThich> YeuThiches { get; set; }
     }
 }

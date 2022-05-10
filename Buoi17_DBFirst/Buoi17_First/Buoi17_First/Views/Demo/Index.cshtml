@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Buoi17_First.Models.KetQuaTimKiemViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div>@ViewBag.TrangHienTai / @ViewBag.TongSoTrang</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<ul class="pagination">
+  <li class="page-item"><a class="page-link" href="#">Trước</a></li>
+    @for (int p = 0; p < ViewBag.TongSoTrang; p++)
+    {
+        var pactive = p + 1 == (int)
+            ViewBag.TrangHienTai ? "active" : "";
+        var mylink = $"/Demo?p={p + 1}&sortBy={ViewBag.SortBy}&ascSort{ViewBag.AscSort}";
+        <li class="page-item  @pactive">
+            <a class="page-link" href="@mylink">@(p+1)</a>
+        </li>
+    }
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenHh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DonGia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Loai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn btn-success">MUA</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loai)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaHh">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaHh">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaHh">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<ul class="pagination">
+  <li class="page-item"><a class="page-link" href="#">Trước</a></li>
+    @for (int p = 0; p < ViewBag.TongSoTrang; p++)
+    {
+        var pactive = p + 1 == (int)
+            ViewBag.TrangHienTai ? "active" : "";
+        var mylink = $"/Demo?p={p + 1}&sortBy={ViewBag.SortBy}&ascSort{ViewBag.AscSort}";
+        <li class="page-item  @pactive">
+            <a class="page-link" href="@mylink">@(p+1)</a>
+        </li>
+    }
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+</ul>
+
