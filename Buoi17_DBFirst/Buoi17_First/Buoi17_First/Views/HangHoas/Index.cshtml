@@ -13,71 +13,72 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenHh)
+                Tên hàng hóa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MoTaDonVi)
+                Mô tả đơn vị
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DonGia)
+                Đơn giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hinh)
+                Hình ảnh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgaySx)
+                Ngày sản xuất
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GiamGia)
+                Giảm giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SoLanXem)
+                Số lần xem
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaLoaiNavigation)
+                Danh mục
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaNccNavigation)
+                Nhà cung cấp
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenHh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoTaDonVi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DonGia)
-            </td>
-            <td>
-                <img src="~/Hinh/HangHoa/@item.Hinh" alt="@item.TenHh" height="100"/>
-            </td>
-            <td>
-                @item.NgaySx.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiamGia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLanXem)
-            </td>
-            <td>
-                @item.MaLoaiNavigation.TenLoai
-            </td>
-            <td>
-                @item.MaNccNavigation.TenCongTy
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaHh">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaHh">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaHh">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenHh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoTaDonVi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonGia)
+                </td>
+                <td>
+                    <img src="~/Hinh/HangHoa/@item.Hinh" alt="@item.TenHh" height="100" />
+                </td>
+                <td>
+                    @item.NgaySx.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiamGia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLanXem)
+                </td>
+                <td>
+                    @item.MaLoaiNavigation.TenLoai
+                </td>
+                <td>
+                    @item.MaNccNavigation.TenCongTy
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaHh">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaHh">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaHh">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

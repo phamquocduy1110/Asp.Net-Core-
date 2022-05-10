@@ -25,6 +25,7 @@ namespace Buoi17_First.Entities
         public string? GhiChu { get; set; }
         public double? ThanhTien { get; set; }
 
+        public virtual KhachHang MaKhNavigation { get; set; } = null!;
         public virtual ICollection<ChiTietHd> ChiTietHds { get; set; }
     }
 }
