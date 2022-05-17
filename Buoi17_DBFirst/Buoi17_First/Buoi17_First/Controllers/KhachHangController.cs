@@ -75,6 +75,7 @@ namespace Buoi17_First.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Profile()
         {
             return View();
