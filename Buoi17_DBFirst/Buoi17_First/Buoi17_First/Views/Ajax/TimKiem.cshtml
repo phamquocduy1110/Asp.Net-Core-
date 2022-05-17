@@ -14,12 +14,12 @@
     <input type="number" id="FormPrice" />
     đến:
     <input type="number" id="ToPrice" />
-    <button type="button">Tìm kiếm</button>
+    <button type="button" id="Search">Tìm kiếm</button>
 </fieldset>
 
 <fieldset>
     <legend>Kết quả tìm kiếm</legend>
-    <table>
+    <table class="table">
         <thread>
             <tr>
                 <th>Tên hàng hóa</th>
@@ -30,3 +30,36 @@
         <tbody id="result"></tbody>
     </table>
 </fieldset>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#Search").click(function() {
+                $.ajax({
+                   url: "/Ajax/HandleSearch",
+                   type: "POST",
+                   data: {
+                       keyword: $("#Keyword").val(),
+                       form: $("#FormPrice").val(),
+                       to: $("#ToPrice").val(),
+                   },
+                   success: function(response) {
+                       $("#result").html("");
+                       // Duyệt qua từng phần tử của tập kết quả
+                       $(response).each(function(idx, item) {
+                           let row = $("<tr/>");
+                           $("<td/>").html(item.hangHoa).appendTo(row);
+                           $("<td/>").html(item.giaBan).appendTo(row);
+                           $("<td/>").html(item.loai).appendTo(row);
+
+                           row.appendTo($("#result"));
+                       });
+                   },
+                   error: function(err) {
+                       console.log(err)
+                   }
+                });
+            });
+        });
+    </script>
+}

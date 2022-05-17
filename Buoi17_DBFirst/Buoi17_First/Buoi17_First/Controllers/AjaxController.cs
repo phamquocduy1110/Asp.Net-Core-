@@ -37,8 +37,7 @@ namespace Buoi17_First.Controllers
                 NgaySX = hh.NgaySx,
                 Loai = hh.MaLoaiNavigation.TenLoai
             }).ToList();
-
-            return RedirectToAction("TimKiemPartial", data);
+            return PartialView("TimKiemPartial", data);
         }
 
         #endregion
@@ -48,35 +47,37 @@ namespace Buoi17_First.Controllers
             _context = context;
         }
 
+        #region Tìm kiếm - trả về JSON
         public IActionResult TimKiem()
         {
             return View();
         }
 
-        public IActionResult HandleSearch(string keyword, double? form, double? to)
+        [HttpPost]
+        public IActionResult HandleSearch(string keyword, double? from, double? to)
         {
             var data = _context.HangHoas.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
                 data = data.Where(p => p.TenHh.Contains(keyword));
             }
-            if (form.HasValue)
+            if (from.HasValue)
             {
-                data = data.Where(p => p.DonGia.Value >= form);
+                data = data.Where(p => p.DonGia.Value >= from);
             }
             if (to.HasValue)
             {
                 data = data.Where(p => p.DonGia.Value <= to);
             }
-
             var result = data.Select(p => new
             {
                 HangHoa = p.TenHh,
                 GiaBan = p.DonGia.Value,
-                Loai = p.MaLoaiNavigation.TenLoai,
-            });
+                Loai = p.MaLoaiNavigation.TenLoai
+            }).ToList();
             return Json(result);
         }
+        #endregion
 
     }
 }
