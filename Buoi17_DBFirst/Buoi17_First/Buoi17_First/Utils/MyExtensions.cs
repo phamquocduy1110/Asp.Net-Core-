@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -20,19 +22,40 @@ namespace Buoi17_First.Utils
             return value == null ? default : JsonSerializer.Deserialize<T>(value);
         }
 
-        public static bool IsPrime(this int number)
+        #region [Hashing Extension]
+        public static string ToSHA256Hash(this string password, string saltKey = null)
         {
-            if (number < 2) return false;
-            for (int i = 2; i < Math.Sqrt(number); i++)
-            {
-                if (number % i == 0) return false;
-            }
-            return true;
+            var sha256 = SHA256.Create();
+            byte[] encryptedSHA256 = sha256.ComputeHash(Encoding.UTF8.GetBytes(string.Concat(password, saltKey)));
+            sha256.Clear();
+
+            return Convert.ToBase64String(encryptedSHA256);
         }
 
-        public static int KhoangCachNgay(this DateTime from, DateTime to)
+        public static string ToSHA512Hash(this string password, string saltKey = null)
         {
-            return Math.Abs((from - to).Days);
+            SHA512Managed sha512 = new SHA512Managed();
+            byte[] encryptedSHA512 = sha512.ComputeHash(Encoding.UTF8.GetBytes(string.Concat(password, saltKey)));
+            sha512.Clear();
+
+            return Convert.ToBase64String(encryptedSHA512);
         }
+
+        public static string ToMd5Hash(this string password, string saltKey = null)
+        {
+            using (var md5 = MD5.Create())
+            {
+                byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(string.Concat(password, saltKey)));
+                StringBuilder sBuilder = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+
+                return sBuilder.ToString();
+            }
+        }
+
+        #endregion
     }
 }
