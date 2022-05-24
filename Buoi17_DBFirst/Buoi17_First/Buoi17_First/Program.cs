@@ -1,5 +1,4 @@
 using Buoi17_First.Data;
-using Buoi17_First.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,14 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<eStore20Context>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("eStore20")));
+
+builder.Services.AddDbContext<ShopDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ShopConnection"));
+});
+
 builder.Services.AddSession(option =>
 {
     option.IdleTimeout = TimeSpan.FromMinutes(2);
