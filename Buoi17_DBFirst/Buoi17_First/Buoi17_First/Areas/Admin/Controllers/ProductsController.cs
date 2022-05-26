@@ -21,12 +21,24 @@ namespace Buoi17_First.Areas.Admin.Controllers
         }
 
         // GET: Admin/Product/Price
-        [HttpGet("Price")]
+        [HttpGet("Admin/Product/Price")]
         public IActionResult ManagePrice()
         {
-            var data = _context.ProductPrices;
+            ViewBag.Sizes = new SelectList(_context.Sizes.ToList(), "Id", "Name");
+            ViewBag.Colors = new SelectList(_context.Colors.ToList(), "Id", "Name");
+            ViewBag.Products = new SelectList(_context.Products.Select(p => new
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+            }).ToList(), "ProductId", "ProductName"
+            );
 
-            return View();
+            var data = _context.ProductPrices
+                .Include(p => p.Product)
+                .Include(p => p.Size)
+                .Include(p => p.Color)
+                .ToList();
+            return View(data);
         }
 
         // GET: Admin/Products
@@ -71,11 +83,12 @@ namespace Buoi17_First.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(Image != null)
+                if (Image != null)
                 {
                     var imageUrl = MyTool.UploadFileToFolder(Image, "Product");
                     product.Image = imageUrl ?? MyTool.NoImage;
-                } else
+                }
+                else
                 {
                     product.Image = MyTool.NoImage;
                 }

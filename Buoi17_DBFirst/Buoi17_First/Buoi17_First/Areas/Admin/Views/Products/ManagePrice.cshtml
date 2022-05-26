@@ -1,5 +1,119 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Buoi17_First.Data.ProductPrice>
 @{
+    ViewData["Title"] = "ManagePrice";
+}
+
+<h1>Manage Price</h1>
+
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+    Add New Price
+</button>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Product</label>
+                    <select class="form-control" asp-items="@ViewBag.Products" id="popup_product"></select>
+                </div>
+                <div class="form-group">
+                    <label>Size</label>
+                    <select class="form-control" asp-items="@ViewBag.Sizes" id="popup_size"></select>
+                </div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <select class="form-control" asp-items="@ViewBag.Colors" id="popup_color"></select>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input class="form-control" id="popup_price" />
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input class="form-control" id="popup_quantity" />
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="p_@(item.ProductId)_@(item.SizeId)_@(item.ColorId)">
+                <td>@item.Product.ProductName</td>
+                <td>@item.Size.Name</td>
+                <td>@item.Color.Name</td>
+                <td>
+                    <input name="Price" data-size="@item.SizeId" data-color="@item.ColorId" data-pid="@item.ProductId" value="@item.Price" />
+                </td>
+                <td>
+                    <input name="Quantity" data-size="@item.SizeId" data-color="@item.ColorId" data-pid="@item.ProductId" value="@item.Quantity" />
+                </td>
+                <td>
+                    <button type="button" class="btn-edit btn btn-success">Edit</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+<script>
+    $(function () {
+        $(".btn-edit").click(function () {
+
+            // Set data
+            let tr = $(this).closest("tr")[0];
+            if(tr.length > 0) {
+                let tr_row = tr[0];
+                let tr_id = $(tr_row).attr("id");
+                let arrIds = tr_id.split("_");
+
+                let priceTags = $(tr_row).find("input[name='Price']");
+                if(priceTags.length > 0) {
+                    $("#popup_price").val($(priceTags[0]).val[0]);
+                }
+                
+                let qtyTags = $(tr_row).find("input[name='Quantity']");
+                if(qtyTags.length > 0) {
+                    $("#popup_quantity").val($(qtyTags[0]).val[0]);
+                }
+
+                $("#popup_product").val(arrIds[1]);
+                $("#popup_size").val(arrIds[2]);
+                $("#popup_color").val(arrIds[3]);
+
+                $("#myModal").modal();
+            }
+        });
+    });
+</script>
 }
