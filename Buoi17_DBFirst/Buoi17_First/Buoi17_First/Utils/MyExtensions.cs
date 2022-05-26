@@ -57,5 +57,10 @@ namespace Buoi17_First.Utils
         }
 
         #endregion
+
+        public static string ToVnd(this double giaTri)
+        {
+            return $"{giaTri:#,##0.00} đ";
+        }
     }
 }

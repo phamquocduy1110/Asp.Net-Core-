@@ -20,6 +20,15 @@ namespace Buoi17_First.Areas.Admin.Controllers
             _context = context;
         }
 
+        // GET: Admin/Product/Price
+        [HttpGet("Price")]
+        public IActionResult ManagePrice()
+        {
+            var data = _context.ProductPrices;
+
+            return View();
+        }
+
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {

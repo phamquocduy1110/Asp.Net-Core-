@@ -9,6 +9,12 @@ namespace Buoi17_First.Data
 
         }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<BrandColor> Colors { get; set; }
+        public DbSet<ProductPrice> ProductPrices { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Định nghĩa cho từng Entity
@@ -34,14 +40,22 @@ namespace Buoi17_First.Data
                     .OnDelete(DeleteBehavior.SetNull);
             });
 
-            modelBuilder.Entity<ProductPrice>(e =>
-            {
+            modelBuilder.Entity<ProductPrice>(e => {
                 e.ToTable("ProductPrice");
                 e.HasKey(pp => new { pp.ProductId, pp.SizeId, pp.ColorId });
+
+                e.HasOne(pp => pp.Product)
+                    .WithMany(p => p.ProductPrices)
+                    .HasForeignKey(pp => pp.ProductId);
+
+                e.HasOne(pp => pp.Size)
+                    .WithMany(p => p.ProductPrices)
+                    .HasForeignKey(pp => pp.SizeId);
+
+                e.HasOne(pp => pp.Color)
+                    .WithMany(p => p.ProductPrices)
+                    .HasForeignKey(pp => pp.ColorId);
             });
         }
-
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
     }
 }
