@@ -41,6 +41,30 @@ namespace Buoi17_First.Areas.Admin.Controllers
             return View(data);
         }
 
+        [HttpPost]
+        public IActionResult UpdatePrice(ProductPrice model)
+        {
+            try
+            {
+                var productPrice = _context.ProductPrices.SingleOrDefault(p => p.ProductId == model.ProductId
+                        && p.SizeId == model.SizeId && p.ColorId == model.ColorId);
+                if (productPrice != null)
+                {
+                    productPrice.Price = model.Price;
+                    productPrice.Quantity = model.Quantity;
+                }
+                else
+                {
+                    _context.Add(model);
+                }
+                _context.SaveChanges();
+                return Json(new { Success = true });
+            } catch
+            {
+                return Json(new { Success = false });
+            }
+        }
+
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
