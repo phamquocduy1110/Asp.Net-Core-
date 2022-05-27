@@ -13,7 +13,7 @@ namespace Buoi17_First.Utils
         public static string FullPathFolderImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Hinh");
 
         public static string NoImage = "no-image-available.png";
-        public static string ImageToBase64(string fileName, string folder)
+        public static string? ImageToBase64(string fileName, string folder)
         {
             var fullPath = Path.Combine(FullPathFolderImage, folder, fileName);
             if (File.Exists(fullPath))

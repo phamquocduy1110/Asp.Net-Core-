@@ -16,14 +16,14 @@ namespace Buoi17_First.Utils
             session.SetString(key, JsonSerializer.Serialize(value));
         }
 
-        public static T Get<T>(this ISession session, string key)
+        public static T? Get<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
             return value == null ? default : JsonSerializer.Deserialize<T>(value);
         }
 
         #region [Hashing Extension]
-        public static string ToSHA256Hash(this string password, string saltKey = null)
+        public static string ToSHA256Hash(this string password, string? saltKey = null)
         {
             var sha256 = SHA256.Create();
             byte[] encryptedSHA256 = sha256.ComputeHash(Encoding.UTF8.GetBytes(string.Concat(password, saltKey)));
@@ -32,16 +32,18 @@ namespace Buoi17_First.Utils
             return Convert.ToBase64String(encryptedSHA256);
         }
 
-        public static string ToSHA512Hash(this string password, string saltKey = null)
+        public static string ToSHA512Hash(this string password, string? saltKey = null)
         {
+            #pragma warning disable SYSLIB0021 // Type or member is obsolete
             SHA512Managed sha512 = new SHA512Managed();
+            #pragma warning restore SYSLIB0021 // Type or member is obsolete
             byte[] encryptedSHA512 = sha512.ComputeHash(Encoding.UTF8.GetBytes(string.Concat(password, saltKey)));
             sha512.Clear();
 
             return Convert.ToBase64String(encryptedSHA512);
         }
 
-        public static string ToMd5Hash(this string password, string saltKey = null)
+        public static string ToMd5Hash(this string password, string? saltKey = null)
         {
             using (var md5 = MD5.Create())
             {
