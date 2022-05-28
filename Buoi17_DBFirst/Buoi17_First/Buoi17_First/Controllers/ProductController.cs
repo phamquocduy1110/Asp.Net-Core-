@@ -1,4 +1,5 @@
-﻿using Buoi17_First.Data;
+﻿using AutoMapper;
+using Buoi17_First.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Buoi17_First.Controllers
@@ -6,10 +7,12 @@ namespace Buoi17_First.Controllers
     public class ProductController : Controller
     {
         private readonly ShopDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductController (ShopDbContext context)
+        public ProductController (ShopDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public IActionResult Index(int? id )
