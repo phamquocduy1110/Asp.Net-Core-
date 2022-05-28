@@ -4,6 +4,7 @@
     ViewData["Title"] = "Create";
 }
 <head>
+    <title>Create new product</title>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
 <body class="nav-md">
@@ -63,13 +64,13 @@
                                     <label asp-for="ProductName" class="col-form-label col-md-3 col-sm-3  label-align"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <input asp-for="ProductName" class="form-control" />
-                                        <span asp-validation-for="ProductName" class="text-danger"></span>\
+                                        <span asp-validation-for="ProductName" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="field item form-group">
                                     <label asp-for="Image" class="col-form-label col-md-3 col-sm-3  label-align"></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input asp-for="Image" class="form-control" type="file" />
+                                        <input asp-for="Image" type="file" />
                                         <span asp-validation-for="Image" class="text-danger"></span>
                                     </div>
                                 </div>
