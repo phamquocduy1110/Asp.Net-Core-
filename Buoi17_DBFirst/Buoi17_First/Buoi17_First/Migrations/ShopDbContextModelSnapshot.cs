@@ -17,10 +17,29 @@ namespace Buoi17_First.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Buoi17_First.Data.BrandColor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ColorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+                });
 
             modelBuilder.Entity("Buoi17_First.Data.Category", b =>
                 {
@@ -80,6 +99,51 @@ namespace Buoi17_First.Migrations
                     b.ToTable("Product", (string)null);
                 });
 
+            modelBuilder.Entity("Buoi17_First.Data.ProductPrice", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BrandColorId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "SizeId", "ColorId");
+
+                    b.HasIndex("BrandColorId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("ProductPrice", (string)null);
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sizes");
+                });
+
             modelBuilder.Entity("Buoi17_First.Data.Product", b =>
                 {
                     b.HasOne("Buoi17_First.Data.Category", "Category")
@@ -91,9 +155,49 @@ namespace Buoi17_First.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Buoi17_First.Data.ProductPrice", b =>
+                {
+                    b.HasOne("Buoi17_First.Data.BrandColor", "BrandColor")
+                        .WithMany("ProductPrices")
+                        .HasForeignKey("BrandColorId");
+
+                    b.HasOne("Buoi17_First.Data.Product", "Product")
+                        .WithMany("ProductPrices")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Buoi17_First.Data.Size", "Size")
+                        .WithMany("ProductPrices")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BrandColor");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Size");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.BrandColor", b =>
+                {
+                    b.Navigation("ProductPrices");
+                });
+
             modelBuilder.Entity("Buoi17_First.Data.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.Product", b =>
+                {
+                    b.Navigation("ProductPrices");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.Size", b =>
+                {
+                    b.Navigation("ProductPrices");
                 });
 #pragma warning restore 612, 618
         }

@@ -47,8 +47,15 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    /// Define are routing
+    name: "areas",
+    pattern: "{area:exists}/{controller=AdminHome}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+
+//Generate default data
+MyDbInitialer.Seed(app);
 
 app.Run();

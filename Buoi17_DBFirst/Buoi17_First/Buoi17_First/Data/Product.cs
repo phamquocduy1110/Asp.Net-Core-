@@ -1,9 +1,12 @@
-﻿namespace Buoi17_First.Data
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Buoi17_First.Data
 {
     public class Product
     {
         public Guid ProductId { get; set; }
 
+        [Display(Name = "Product name")]
         public string? ProductName { get; set; }
 
         public string? Image { get; set; }
@@ -60,8 +63,8 @@
 
         public int Quantity { get; set; }
 
-        public Product Product { get; set; }
-        public BrandColor BrandColor { get; set; }
-        public Size Size { get; set; }
+        public Product? Product { get; set; }
+        public BrandColor? Color { get; set; }
+        public Size? Size { get; set; }
     }
 }

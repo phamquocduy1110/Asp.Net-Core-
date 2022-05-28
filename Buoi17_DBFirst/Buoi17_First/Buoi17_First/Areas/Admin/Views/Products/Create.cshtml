@@ -1,0 +1,128 @@
+﻿@model Buoi17_First.Data.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+</head>
+<body class="nav-md">
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Create new product</h3>
+                </div>
+
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Form validation <small>sub title</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Settings 1</a>
+                                        <a class="dropdown-item" href="#">Settings 2</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form asp-action="Create" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="field item form-group">
+                                    <label asp-for="CategoryId" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                                    </div>
+                                </div>
+                                <div class="field item form-group">
+                                    <label asp-for="ProductName" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input asp-for="ProductName" class="form-control" />
+                                        <span asp-validation-for="ProductName" class="text-danger"></span>\
+                                    </div>
+                                </div>
+                                <div class="field item form-group">
+                                    <label asp-for="Image" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input asp-for="Image" class="form-control" type="file" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="field item form-group">
+                                    <label asp-for="Price" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input asp-for="Price" class="form-control" />
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="field item form-group">
+                                    <label asp-for="Description" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input asp-for="Description" class="form-control" />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                                <div class="ln_solid">
+                                    <div class="form-group">
+                                        <div class="col-md-6 offset-md-3">
+                                            <input type="submit" value="Create" class="btn btn-primary" />
+                                            <button type='reset' class="btn btn-success">Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <a asp-action="Index">Back to List</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+    @section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- include summernote css/js -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(function () {
+            $("#Description").summernote({
+                placeholder: 'Product description',
+                tabsize: 2,
+                height: 200
+            });
+        });
+    </script>
+    }
+</body>
