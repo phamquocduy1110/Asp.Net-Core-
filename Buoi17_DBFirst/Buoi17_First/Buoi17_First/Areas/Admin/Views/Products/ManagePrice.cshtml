@@ -4,6 +4,35 @@
 }
 
 <h1>Manage Price</h1>
+<!-- Button to Open the Modal -->
+@*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+  Open modal
+</button>*@
+
+<!-- The Modal -->
+@*<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>*@
 
 <!-- Button to Open the Modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -47,6 +76,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="popup_save">Save</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
 
@@ -62,7 +92,7 @@
             <th>Color</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -86,34 +116,64 @@
     </tbody>
 </table>
 @section Scripts{
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $(function () {
-        $(".btn-edit").click(function () {
+        $(function () {
+            $("#popup_save").click(function () {
+                $.ajax({
+                    url: "/Admin/Products/UpdatePrice",
+                    type: "POST",
+                    data: {
+                        ProductId: $("#popup_product").val(),
+                        SizeId: $("#popup_size").val(),
+                        ColorId: $("#popup_color").val(),
+                        Price: $("#popup_price").val(),
+                        Quantity: $("#popup_quantity").val(),
+                    },
+                    success: function(response) {
+                        $("#myModal").modal('hide');
 
-            // Set data
-            let tr = $(this).closest("tr")[0];
-            if(tr.length > 0) {
-                let tr_row = tr[0];
-                let tr_id = $(tr_row).attr("id");
-                let arrIds = tr_id.split("_");
+                        if(response.success) {
+                            Swal.fire(
+                              'Good job!',
+                              'Updated Successful',
+                            )
+                        } else {
+                            Swal.fire(
+                              'Update Failed',
+                              'Change price unsuccessful',
+                            )
+                        }
+                    },
+                    error: function(response) {
+                        if(response.error) {
 
-                let priceTags = $(tr_row).find("input[name='Price']");
-                if(priceTags.length > 0) {
-                    $("#popup_price").val($(priceTags[0]).val[0]);
+                        }
+                    },
+                });
+            });
+
+            $(".btn-edit").click(function () {
+                //set data
+                let tr = $(this).closest("tr");
+                if (tr.length > 0) {
+                    let tr_row = tr[0];
+                    let tr_id = $(tr_row).attr("id");
+                    let arrIds = tr_id.split("_");
+                    let priceTags = $(tr_row).find("input[name='Price']");
+                    if (priceTags.length > 0) {
+                        $("#popup_price").val($(priceTags[0]).val());
+                    }
+                    let qtyTags = $(tr_row).find("input[name='Quantity']");
+                    if (qtyTags.length > 0) {
+                        $("#popup_quantity").val($(qtyTags[0]).val());
+                    }
+                    $("#popup_product").val(arrIds[1]);
+                    $("#popup_size").val(arrIds[2]);
+                    $("#popup_color").val(arrIds[3]);
+                    $("#myModal").modal('show');
                 }
-                
-                let qtyTags = $(tr_row).find("input[name='Quantity']");
-                if(qtyTags.length > 0) {
-                    $("#popup_quantity").val($(qtyTags[0]).val[0]);
-                }
-
-                $("#popup_product").val(arrIds[1]);
-                $("#popup_size").val(arrIds[2]);
-                $("#popup_color").val(arrIds[3]);
-
-                $("#myModal").modal();
-            }
+            });      
         });
-    });
 </script>
 }
