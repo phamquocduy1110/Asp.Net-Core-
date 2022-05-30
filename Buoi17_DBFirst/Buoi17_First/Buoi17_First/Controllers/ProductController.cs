@@ -26,5 +26,22 @@ namespace Buoi17_First.Controllers
             var data = _mapper.Map<List<ProductViewModel>>(products.ToList());
             return View(data);
         }
+
+        // GET: HangHoa/Details/5
+        public IActionResult Details(Guid? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var hannghoa = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            if(hannghoa == null)
+            {
+                return NotFound();
+            }
+
+            return View(hannghoa);
+        }
     }
 }
