@@ -1,12 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Buoi17_First</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Buoi17_First.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <link rel="stylesheet" href="~/shopper/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/shopper/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/shopper/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/shopper/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/shopper/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/shopper/css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="~/shopper/css/aos.css">
+
+    <link rel="stylesheet" href="~/shopper/css/style.css">
 </head>
 <body>
     <header class="site-navbar" role="banner">
@@ -70,7 +80,7 @@
                         @await Component.InvokeAsync("CategoryHorizontalMenu")
                         
                     </li>
-                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="@Url.Action("Index", "Product")">Shop</a></li>
                     <li><a href="#">Catalogue</a></li>
                     <li><a href="#">New Arrivals</a></li>
                     <li><a href="contact.html">Contact</a></li>
