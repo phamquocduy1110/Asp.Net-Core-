@@ -2,6 +2,7 @@
 using Buoi17_First.Data;
 using Buoi17_First.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Buoi17_First.Controllers
 {
@@ -23,18 +24,18 @@ namespace Buoi17_First.Controllers
             {
                 products = products.Where(p=> p.CategoryId == id);
             }
-            var data = _mapper.Map<List<ProductViewModel>>(products.ToList());
+            //var data = _mapper.Map<List<ProductViewModel>>(products.ToList());
 
-            return View(data);
 
-            // Cách 2
-            /* var data = products.Select(p => new ProductViewModel
+            var data = products.Select(p => new ProductViewModel
             {
                 ProductId = p.ProductId,
                 ProductName = p.ProductName,
                 Image = p.Image,
                 Price = p.ProductPrices.FirstOrDefault().Price
-            }).ToList(); */
+            }).ToList();
+
+            return View(data);
 
             //Cách 3
             //foreach(var item in data)
@@ -55,12 +56,16 @@ namespace Buoi17_First.Controllers
                 return NotFound();
             }
 
-            var hannghoa = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            var hannghoa = _context.Products
+                .Include(p => p.ProductPrices)
+                .ThenInclude(p => p.Size)
+                .SingleOrDefault(p => p.ProductId == id);
             if(hannghoa == null)
             {
                 return NotFound();
             }
 
+            ViewBag.Colors = _context.Colors.ToList();
             return View(hannghoa);
         }
     }

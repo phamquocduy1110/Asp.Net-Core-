@@ -40,6 +40,8 @@ else
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithRedirects("/NotFound?status={0}");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

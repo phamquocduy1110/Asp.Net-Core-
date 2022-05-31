@@ -1,5 +1,5 @@
 ﻿@model Buoi17_First.Data.Product
-
+@using Buoi17_First.Utils
 @{
     ViewData["Title"] = "Details";
 }
@@ -18,21 +18,18 @@
                 </div>
                 <div class="col-md-6">
                     <h2 class="text-black">Tank Top T-Shirt</h2>
-                    <p>@Model.Description</p>
-                    <p><strong class="text-primary h4">$@Model.Price</strong></p>
+                    <p>@Html.Raw(Model.Description)</p>
+                    <p><strong id="product-price" class="text-primary h4">$@Model.Price.ToVnd()</strong></p>
                     <div class="mb-1 d-flex">
-                        <label for="option-sm" class="d-flex mr-3 mb-3">
-                            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
-                        </label>
-                        <label for="option-md" class="d-flex mr-3 mb-3">
-                            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Medium</span>
-                        </label>
-                        <label for="option-lg" class="d-flex mr-3 mb-3">
-                            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>
-                        </label>
-                        <label for="option-xl" class="d-flex mr-3 mb-3">
-                            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
-                        </label>
+                        @foreach (var price in Model.ProductPrices)
+                        {
+                            <label for="option-sm" class="d-flex mr-3 mb-3">
+                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                                    <input type="radio" class="product-size" name="shop-sizes" value="@price.SizeId" data-price="@price.Price">
+                                </span>
+                                <span class="d-inline-block text-black">@price.Size!.Name</span>
+                            </label>
+                        }
                     </div>
                     <div class="mb-5">
                         <div class="input-group mb-3" style="max-width: 120px;">
