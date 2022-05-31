@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Buoi17_First.ViewModels.ProductViewModel>
+@using Buoi17_First.Utils
 <div class="site-section">
     <div class="container">
         <div class="row mb-5">
@@ -42,7 +43,7 @@
                                 <div class="block-4-text p-4">
                                     <h3><a href="shop-single.html">@item.ProductName</a></h3>
                                     <p class="mb-0">Finding perfect t-shirt</p>
-                                    <p class="text-primary font-weight-bold">@item.Price</p>
+                                    <p class="text-primary font-weight-bold">@item.Price.ToVnd()</p>
                                 </div>
                             </div>
                         </div>

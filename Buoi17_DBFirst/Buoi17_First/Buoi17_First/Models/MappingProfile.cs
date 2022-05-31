@@ -12,6 +12,7 @@ namespace Buoi17_First.Models
             CreateMap<Product, ProductViewModel>();
 
             // .ReverseMap(); là map 2 chiều
+
             // CreateMap<Product, ProductViewModel>().ReverseMap();
         }
     }

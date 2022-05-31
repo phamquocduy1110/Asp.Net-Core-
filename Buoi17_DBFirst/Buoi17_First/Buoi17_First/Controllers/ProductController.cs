@@ -24,7 +24,27 @@ namespace Buoi17_First.Controllers
                 products = products.Where(p=> p.CategoryId == id);
             }
             var data = _mapper.Map<List<ProductViewModel>>(products.ToList());
+
             return View(data);
+
+            // Cách 2
+            /* var data = products.Select(p => new ProductViewModel
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+                Image = p.Image,
+                Price = p.ProductPrices.FirstOrDefault().Price
+            }).ToList(); */
+
+            //Cách 3
+            //foreach(var item in data)
+            //{
+            //    var p_price = _context.ProductPrices.FirstOrDefault(c => c.ProductId == item.ProductId);
+            //    if (p_price != null)
+            //    {
+            //        item.SoldPrice = p_price.Price;
+            //    }
+            //}
         }
 
         // GET: HangHoa/Details/5
