@@ -1,6 +1,7 @@
 using Buoi17_First.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDbContext<ShopDbContext>(options =>
 {
@@ -36,6 +39,8 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseStatusCodePagesWithRedirects("/NotFound?status={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

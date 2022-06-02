@@ -140,7 +140,7 @@ namespace Buoi17_First.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            _context.Categories.Remove(category!);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
