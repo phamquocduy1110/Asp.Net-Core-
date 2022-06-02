@@ -34,5 +34,10 @@ namespace Buoi17_First.Controllers
         {
             return View();
         }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }
