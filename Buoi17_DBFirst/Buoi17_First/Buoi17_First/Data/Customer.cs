@@ -3,6 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Buoi17_First.Data
 {
+    public enum OrderStatus
+    {
+        New = 0, 
+        Confirm = 1, 
+        Payment = 2, 
+        Delivery = 3, 
+        Cancel = -1
+    }
+
     [Table("Customer")]
     public class Customer
     {
