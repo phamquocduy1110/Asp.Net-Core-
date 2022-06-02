@@ -17,9 +17,9 @@
                     <img src="~/Hinh/Product/@Model.Image" alt="Image" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <h2 class="text-black">Tank Top T-Shirt</h2>
+                    <h2 class="text-black">@Model.ProductName</h2>
                     <p>@Html.Raw(Model.Description)</p>
-                    <p><strong id="product-price" class="text-primary h4">$@Model.Price.ToVnd()</strong></p>
+                    <p><strong id="product_price" class="text-primary h4">$@Model.Price.ToVnd()</strong></p>
                     <div class="mb-1 d-flex">
                         @foreach (var price in Model.ProductPrices)
                         {
@@ -125,5 +125,22 @@
             </div>
         </div>
     </div>
+    @section Scripts {
+    <script>
+                $(function () {
+            if ($("input.product-size").length > 0) {
+                const first_radio = $($("input.product-size")[0]);
+                first_radio.prop('checked', true);
+                $("#product_price").html(first_radio.data("price"));
+            }
+
+
+            //set su kien click hien thi gia khi nhan vao size
+            $("input.product-size").click(function () {
+                $("#product_price").html($(this).data("price"));
+            });
+        });
+    </script>
+    }
 </body>
 </html>
