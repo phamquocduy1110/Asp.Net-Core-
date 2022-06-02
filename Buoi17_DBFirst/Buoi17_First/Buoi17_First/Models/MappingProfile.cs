@@ -10,10 +10,9 @@ namespace Buoi17_First.Models
         {
             // Định nghĩa các bộ map
             CreateMap<Product, ProductViewModel>();
-
             // .ReverseMap(); là map 2 chiều
-
             // CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<RegisterViewModel, Customer>();
         }
     }
 }

@@ -23,6 +23,11 @@ namespace Buoi17_First.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Định nghĩa cho từng Entity
+            modelBuilder.Entity<Customer>(e =>
+            {
+                e.HasIndex(c => c.UserName).IsUnique();
+            });
+
             modelBuilder.Entity<Category>(e =>
             {
                 e.ToTable("Category");
