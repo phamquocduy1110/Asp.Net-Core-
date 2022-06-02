@@ -65,7 +65,8 @@ namespace Buoi17_First.Controllers
                 return NotFound();
             }
 
-            ViewBag.Colors = _context.Colors.ToList();
+            ViewBag.Colors = _context.Colors.ToList(); 
+            ViewBag.Sizes = _context.Sizes.ToList();
             return View(hannghoa);
         }
     }

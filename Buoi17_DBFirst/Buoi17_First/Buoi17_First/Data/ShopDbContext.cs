@@ -16,6 +16,7 @@ namespace Buoi17_First.Data
         public DbSet<Size> Sizes { get; set; }
         public DbSet<BrandColor> Colors { get; set; }
         public DbSet<ProductPrice> ProductPrices { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
