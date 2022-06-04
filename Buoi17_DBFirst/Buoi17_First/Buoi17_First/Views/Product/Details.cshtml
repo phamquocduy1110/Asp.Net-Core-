@@ -1,5 +1,7 @@
 ﻿@model Buoi17_First.Data.Product
 @using Buoi17_First.Utils
+@using Buoi17_First.Data
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,6 +23,15 @@
                     <p>@Html.Raw(Model.Description)</p>
                     <p><strong id="product_price" class="text-primary h4">$@Model.Price.ToVnd()</strong></p>
                     <div class="mb-1 d-flex">
+                        @*@foreach (Size sItem in ViewBag.Sizes)
+                            {
+                            <label for="option-sm" class="d-flex mr-3 mb-3">
+                            <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                            <input type="radio" class="product-size" name="shop-sizes" value="@price.SizeId" data-price="@price.Price">
+                            </span>
+                            <span class="d-inline-block text-black">@price.Size!.Name</span>
+                            </label>
+                            }*@
                         @foreach (var price in Model.ProductPrices)
                         {
                             <label for="option-sm" class="d-flex mr-3 mb-3">
@@ -29,6 +40,36 @@
                                 </span>
                                 <span class="d-inline-block text-black">@price.Size!.Name</span>
                             </label>
+                        }
+                    </div>
+                    @{
+                        var proSizes = Model.ProductPrices.Select(p => p.SizeId).Distinct().ToList();
+                        var proColors = Model.ProductPrices.Select(p => p.ColorId).Distinct().ToList();
+                    }
+                    <div class="mb-1 d-flex">
+                        @foreach (Size sItem in ViewBag.Sizes)
+                        {
+                            if (proSizes.Contains(sItem.Id))
+                            {
+                                <label for="option-sm" class="d-flex mr-3 mb-3">
+                                    <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                                        <input type="radio" name="shop-sizes" value="@sItem.Id">
+                                    </span>
+                                    <span class="d-inline-block text-black">@sItem.Name</span>
+                                </label>
+                            }
+                        }
+                    </div>
+                    <div class="mb-5">
+                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
+                        @foreach (BrandColor cItem in ViewBag.Colors)
+                        {
+                            if (proColors.Contains(cItem.Id))
+                            {
+                                <a href="#" class="d-flex color-item align-items-center">
+                                    <span class="bg-danger color d-inline-block rounded-circle mr-2" style="background:@cItem.ColorName !important"></span> <span class="text-black">@cItem.Name</span>
+                                </a>
+                            }
                         }
                     </div>
                     <div class="mb-5">

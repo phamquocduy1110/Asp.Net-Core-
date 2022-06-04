@@ -16,10 +16,22 @@ namespace Buoi17_First.Data
         public DbSet<Size> Sizes { get; set; }
         public DbSet<BrandColor> Colors { get; set; }
         public DbSet<ProductPrice> ProductPrices { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<FeatureRole> FeatureRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Định nghĩa cho từng Entity
+            modelBuilder.Entity<Customer>(e =>
+            {
+                e.HasIndex(c => c.UserName).IsUnique();
+            });
+
             modelBuilder.Entity<Category>(e =>
             {
                 e.ToTable("Category");

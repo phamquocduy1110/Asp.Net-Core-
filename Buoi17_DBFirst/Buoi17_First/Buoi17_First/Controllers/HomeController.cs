@@ -30,7 +30,14 @@ namespace Buoi17_First.Controllers
         }
 
         [HttpGet("/NotFound")]
+        #pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         public IActionResult NotFound()
+        #pragma warning restore CS0114 // Member hides inherited member; missing override keyword
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
         {
             return View();
         }

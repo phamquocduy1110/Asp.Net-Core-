@@ -36,7 +36,22 @@
                     <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                         <div class="site-top-icons">
                             <ul>
-                                <li><a href="#"><span class="icon icon-person"></span></a></li>
+                                @if (!User.Identity!.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a asp-action="Login" asp-controller="Customer">
+                                            <span class="icon icon-person"></span>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-action="Logut" asp-controller="Customer">Good morning! <b>@User.Identity.Name </b>
+                                            <span class="icon-sign-out"></span>
+                                        </a>
+                                    </li>
+                                }
                                 <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                                 <li>
                                     <a asp-action="Index" asp-controller="Cart" class="site-cart">
@@ -77,7 +92,7 @@
                     <li><a asp-action="Index" asp-controller="Product">Shop</a></li>
                     <li><a href="#">Catalogue</a></li>
                     <li><a href="#">New Arrivals</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
                 </ul>
             </div>
         </nav>

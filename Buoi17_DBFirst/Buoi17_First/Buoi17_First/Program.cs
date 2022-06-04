@@ -2,6 +2,7 @@ using Buoi17_First.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.LoginPath = "/Customer/Login";
+    option.LogoutPath = "/Customer/Logout";
+    option.AccessDeniedPath = "/AccessDenied";
+});
 
 builder.Services.AddDbContext<ShopDbContext>(options =>
 {
