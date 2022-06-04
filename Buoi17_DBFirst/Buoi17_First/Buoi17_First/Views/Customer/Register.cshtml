@@ -1,15 +1,10 @@
 ﻿@model Buoi17_First.ViewModels.RegisterViewModel
 
-@{
-    ViewData["Title"] = "Create";
-}
+<h1>Register</h1>
 
-<h1>Create</h1>
-
-<h4>HangHoa</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row ml-4">
+    <div class="col-md-12">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -38,7 +33,7 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create new account" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -47,7 +42,6 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

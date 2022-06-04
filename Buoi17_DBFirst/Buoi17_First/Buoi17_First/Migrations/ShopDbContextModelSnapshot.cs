@@ -103,6 +103,50 @@ namespace Buoi17_First.Migrations
                     b.ToTable("Customer");
                 });
 
+            modelBuilder.Entity("Buoi17_First.Data.Feature", b =>
+                {
+                    b.Property<int>("FeatureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeatureId"), 1L, 1);
+
+                    b.Property<string>("FeatureName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("FeatureId");
+
+                    b.ToTable("Feature");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.FeatureRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FeatureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeatureId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("FeatureRole");
+                });
+
             modelBuilder.Entity("Buoi17_First.Data.Order", b =>
                 {
                     b.Property<Guid>("OrderId")
@@ -222,6 +266,28 @@ namespace Buoi17_First.Migrations
                     b.ToTable("ProductPrice", (string)null);
                 });
 
+            modelBuilder.Entity("Buoi17_First.Data.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role");
+                });
+
             modelBuilder.Entity("Buoi17_First.Data.Size", b =>
                 {
                     b.Property<int>("Id")
@@ -236,6 +302,48 @@ namespace Buoi17_First.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRole");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.FeatureRole", b =>
+                {
+                    b.HasOne("Buoi17_First.Data.Feature", "Feature")
+                        .WithMany()
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Buoi17_First.Data.Role", "Role")
+                        .WithMany("FeatureRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Feature");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Buoi17_First.Data.Order", b =>
@@ -322,6 +430,25 @@ namespace Buoi17_First.Migrations
                     b.Navigation("Size");
                 });
 
+            modelBuilder.Entity("Buoi17_First.Data.UserRole", b =>
+                {
+                    b.HasOne("Buoi17_First.Data.Customer", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Buoi17_First.Data.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Buoi17_First.Data.BrandColor", b =>
                 {
                     b.Navigation("ProductPrices");
@@ -335,6 +462,8 @@ namespace Buoi17_First.Migrations
             modelBuilder.Entity("Buoi17_First.Data.Customer", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Buoi17_First.Data.Order", b =>
@@ -345,6 +474,11 @@ namespace Buoi17_First.Migrations
             modelBuilder.Entity("Buoi17_First.Data.Product", b =>
                 {
                     b.Navigation("ProductPrices");
+                });
+
+            modelBuilder.Entity("Buoi17_First.Data.Role", b =>
+                {
+                    b.Navigation("FeatureRoles");
                 });
 
             modelBuilder.Entity("Buoi17_First.Data.Size", b =>

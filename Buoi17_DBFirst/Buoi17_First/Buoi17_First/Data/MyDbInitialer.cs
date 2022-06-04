@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Buoi17_First.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace Buoi17_First.Data
             {
                 var context = serviceScope.ServiceProvider.GetService<ShopDbContext>();
 
-                #pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 if (!context.Sizes.Any())
                 {
                     context.AddRange(new Size
@@ -32,7 +33,7 @@ namespace Buoi17_First.Data
                     });
                 }
 
-                #pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 if (!context.Colors.Any())
                 {
                     context.AddRange(new BrandColor
@@ -50,6 +51,33 @@ namespace Buoi17_First.Data
                         Name = "Blue",
                         ColorName = "#0000FF"
                     });
+                }
+
+                if (!context.Roles.Any())
+                {
+                    context.AddRange(
+                        new Role
+                        {
+                            RoleName = "Administrator",
+                            Description = "Quản trị hệ thống",
+
+                        },
+                        new Role
+                        {
+                            RoleName = "Sales",
+                            Description = "Nhân viên kinh doanh",
+                        },
+                        new Role
+                        {
+                            RoleName = "Customer",
+                            Description = "Khách hàng",
+                        },
+                        new Role
+                        {
+                            RoleName = "Accountant",
+                            Description = "Kế toán",
+                        }
+                    );
                 }
 
                 context.SaveChanges();

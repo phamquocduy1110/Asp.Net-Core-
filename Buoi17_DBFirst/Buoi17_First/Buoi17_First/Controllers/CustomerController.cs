@@ -2,7 +2,9 @@
 using Buoi17_First.Data;
 using Buoi17_First.Utils;
 using Buoi17_First.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Buoi17_First.Controllers
 {
@@ -35,15 +37,14 @@ namespace Buoi17_First.Controllers
                 try
                 {
                     var customer = _mapper.Map<Customer>(model);
-                    customer.IsActive = true; // false ==> link/mail ==> change active true
+                    customer.IsActive = true;//false ==> link/mail ==> change active true
                     customer.RandomKey = MyTool.GetRandom();
                     customer.Password = model.Password!.ToSHA512Hash(customer.RandomKey);
 
                     _context.Add(customer);
                     _context.SaveChanges();
-
                     return RedirectToAction("Login");
-                } catch(Exception ex)
+                } catch
                 {
                     return View();
                 }
@@ -57,7 +58,8 @@ namespace Buoi17_First.Controllers
             return View();
         }
 
-        public IActionResult Login(LoginViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -78,9 +80,28 @@ namespace Buoi17_First.Controllers
                     ModelState.AddModelError("loi", "Sai thông tin đăng nhập");
                     return View();
                 }
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, customer.FullName!),
+                    new Claim("Username", customer.UserName!),
+                    new Claim("UserId", customer.CustomerId.ToString()),
+                };
+
+                var claimIdentity = new ClaimsIdentity(claims, "login");
+                var principal = new ClaimsPrincipal(claimIdentity);
+                await HttpContext.SignInAsync(principal);
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> Logut(Guid id)
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
