@@ -58,22 +58,26 @@ namespace Buoi17_First.Data
                     context.AddRange(
                         new Role
                         {
+                            /*RoleId = 1,*/
                             RoleName = "Administrator",
                             Description = "Quản trị hệ thống",
 
                         },
                         new Role
                         {
+                            /*RoleId = 2,*/
                             RoleName = "Sales",
                             Description = "Nhân viên kinh doanh",
                         },
                         new Role
                         {
+                            /*RoleId = 3,*/
                             RoleName = "Customer",
                             Description = "Khách hàng",
                         },
                         new Role
                         {
+                            /*RoleId = 4,*/
                             RoleName = "Accountant",
                             Description = "Kế toán",
                         }

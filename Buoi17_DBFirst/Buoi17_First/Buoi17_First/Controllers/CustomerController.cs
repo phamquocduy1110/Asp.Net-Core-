@@ -42,6 +42,14 @@ namespace Buoi17_First.Controllers
                     customer.Password = model.Password!.ToSHA512Hash(customer.RandomKey);
 
                     _context.Add(customer);
+
+                    // Add role default = customer
+                    _context.Add(new UserRole
+                    {
+                        RoleId = 3, // nhớ set cố định lúc init
+                        CustomerId = customer.CustomerId,
+                    });
+
                     _context.SaveChanges();
                     return RedirectToAction("Login");
                 } catch
@@ -87,6 +95,12 @@ namespace Buoi17_First.Controllers
                     new Claim("Username", customer.UserName!),
                     new Claim("UserId", customer.CustomerId.ToString()),
                 };
+
+                // Add role
+                foreach(var role in customer.UserRoles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role.Role!.RoleName));
+                }
 
                 var claimIdentity = new ClaimsIdentity(claims, "login");
                 var principal = new ClaimsPrincipal(claimIdentity);
