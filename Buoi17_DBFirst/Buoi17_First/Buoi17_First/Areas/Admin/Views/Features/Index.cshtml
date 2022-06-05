@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Buoi17_First.Data.Product>
+﻿@model IEnumerable<Buoi17_First.Data.Feature>
+
+@{
+    ViewData["Title"] = "AssignPermission";
+}
 <html>
 <head>
     <title>Product Management</title>
@@ -9,7 +13,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Products Management</h3>
+                    <h3>Assign Permission</h3>
                 </div>
 
                 <div class="title_right">
@@ -55,28 +59,16 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="card-box table-responsive">
-                                        <table id="datatable" class="table table-striped table-bordered" style="width:100%; table-layout: fixed; overflow: hidden">
+                                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        Image
+                                                        @Html.DisplayNameFor(model => model.FeatureName)
                                                     </th>
                                                     <th>
-                                                        ProductName
+                                                        @Html.DisplayNameFor(model => model.Url)
                                                     </th>
-                                                    <th>
-                                                        Description
-                                                    </th>
-                                                    <th>
-                                                        Category
-                                                    </th>
-                                                    <th>
-                                                        Price
-                                                    </th>
-                                                    <th>
-                                                        Quantity
-                                                    </th>
-                                                    <th>Actions</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -84,36 +76,15 @@
                                                 {
                                                     <tr>
                                                         <td>
-                                                            <img src="~/Hinh/Product/@item.Image" width="100" alt="@item.ProductName" />
+                                                            @item.FeatureName
                                                         </td>
                                                         <td>
-                                                            @Html.Raw(@item.ProductName)
+                                                            @item.Url
                                                         </td>
                                                         <td>
-                                                            @item.Description
-                                                        </td>
-                                                        <td>
-                                                            @item.Category!.CategoryName
-                                                        </td>
-                                                        <td>
-                                                            @item.Price
-                                                        </td>
-                                                        <td>
-                                                            @item.Quantity
-                                                        </td>
-                                                        <td>
-                                                            <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-info btn-xs">
-                                                                <i class="fa fa-pencil"></i>
-                                                                Edit
-                                                            </a><br>
-                                                            <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-primary btn-xs">
-                                                                <i class="fa fa-folder"></i>
-                                                                Details
-                                                            </a><br>
-                                                            <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-xs">
-                                                                <i class="fa fa-trash-o"></i>
-                                                                Delete
-                                                            </a>
+                                                            <a asp-action="Edit" asp-route-id="@item.FeatureId">Edit</a> |
+                                                            <a asp-action="Details" asp-route-id="@item.FeatureId">Details</a> |
+                                                            <a asp-action="Delete" asp-route-id="@item.FeatureId">Delete</a>
                                                         </td>
                                                     </tr>
                                                 }

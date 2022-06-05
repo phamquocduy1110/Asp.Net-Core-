@@ -34,7 +34,7 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Form validation <small>sub title</small></h2>
+                            <h2>Please! Fill in your product's information</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -83,6 +83,13 @@
                                     </div>
                                 </div>
                                 <div class="field item form-group">
+                                    <label asp-for="Quantity" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input asp-for="Quantity" class="form-control" />
+                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="field item form-group">
                                     <label asp-for="Description" class="col-form-label col-md-3 col-sm-3  label-align"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <input asp-for="Description" class="form-control" />
@@ -93,14 +100,10 @@
                                 <div class="ln_solid">
                                     <div class="form-group">
                                         <div class="col-md-6 offset-md-3">
-                                            <input type="submit" value="Create" class="btn btn-primary" />
-                                            <button type='reset' class="btn btn-success">Reset</button>
+                                            <input type="submit" value="Create" class="btn btn-success" />
+                                            <button type='reset' class="btn btn-primary">Reset</button>
+                                            <a asp-action="Index" type="button" class="btn btn-danger">Back to list</a>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div>
-                                        <a asp-action="Index">Back to List</a>
                                     </div>
                                 </div>
                             </form>

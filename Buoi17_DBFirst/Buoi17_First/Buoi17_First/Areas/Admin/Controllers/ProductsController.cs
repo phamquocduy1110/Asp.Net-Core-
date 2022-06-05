@@ -82,7 +82,13 @@ namespace Buoi17_First.Areas.Admin.Controllers
 
             var product = await _context.Products
                 .Include(p => p.Category)
+                .Include(p => p.ProductPrices)
+                .ThenInclude(p => p.Size)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+
+            ViewBag.Colors = _context.Colors.ToList();
+            ViewBag.Sizes = _context.Sizes.ToList();
+
             if (product == null)
             {
                 return NotFound();
@@ -103,7 +109,7 @@ namespace Buoi17_First.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Image,Price,Description,CategoryId")] Product product, IFormFile Image)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Image,Price,Description,CategoryId,Quantity")] Product product, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
@@ -147,7 +153,7 @@ namespace Buoi17_First.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ProductId,ProductName,Image,Price,Description,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ProductId,ProductName,Image,Price,Description,CategoryId,Quantity")] Product product, IFormFile Image)
         {
             if (id != product.ProductId)
             {
@@ -158,6 +164,15 @@ namespace Buoi17_First.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (Image != null)
+                    {
+                        var imageUrl = MyTool.UploadFileToFolder(Image, "Product");
+                        product.Image = imageUrl ?? MyTool.NoImage;
+                    }
+                    else
+                    {
+                        product.Image = MyTool.NoImage;
+                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }

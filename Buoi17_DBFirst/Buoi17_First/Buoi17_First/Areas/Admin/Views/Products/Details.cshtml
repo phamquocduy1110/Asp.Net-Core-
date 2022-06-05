@@ -1,43 +1,155 @@
-﻿@model Buoi17_First.Data.Product
+﻿@using Buoi17_First.Data
+@using Buoi17_First.Utils
+@model Buoi17_First.Data.Product
 
 @{
     ViewData["Title"] = "Details";
 }
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>E-commerce :: Product Page</h3>
+                        </div>
 
-<h1>Details</h1>
+                        <div class="title_right">
+                            <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Product's list details</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#">Settings 1</a>
+                                                <a class="dropdown-item" href="#">Settings 2</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <div class="col-md-7 col-sm-7 ">
+                                        <div class="product-image">
+                                            <img src="~/Hinh/Product/@Model.Image" alt="@Model.ProductName" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-5 " style="border:0px solid #e5e5e5;">
+
+                                        <h3 class="prod_title">@Model.ProductName</h3>
+
+                                        <p>@Model.Description</p>
+                                        <br />
+                                        @{
+                                            var proSizes = Model.ProductPrices.Select(p => p.SizeId).Distinct().ToList();
+                                            var proColors = Model.ProductPrices.Select(p => p.ColorId).Distinct().ToList();
+                                        }
+                                        <h2>Available Colors</h2>
+                                        <div class="mb-1 d-flex">
+                                            @foreach (BrandColor cItem in ViewBag.Colors)
+                                            {
+                                                if (proColors.Contains(cItem.Id))
+                                                {
+                                                    <a href="#" class="list-inline prod_color display-layout">
+                                                        <span class="bg-danger color d-inline-block rounded-circle mr-2" style="background:@cItem.ColorName !important;"></span> <span class="text-black">@cItem.Name</span><br>
+                                                    </a>
+                                                }
+                                            }
+                                        </div>
+                                        <br />
+
+                                        <h2>Sizes</h2>
+                                        <div class="mb-1 d-flex">
+                                            @foreach (Size sItem in ViewBag.Sizes)
+                                            {
+                                                if (proSizes.Contains(sItem.Id))
+                                                {
+                                                    <label for="option-sm" class="d-flex mr-3 mb-3">
+                                                        <span class="d-inline-block mr-2" style="top:-2px; position: relative;">
+                                                            <input type="radio" name="shop-sizes" value="@sItem.Id">
+                                                        </span>
+                                                        <span class="d-inline-block text-black">@sItem.Name</span>
+                                                    </label>
+                                                }
+                                            }
+                                        </div>
+                                        <br />
+
+                                        <div class="">
+                                            <div class="product_price">
+                                                <h1 class="price">Price: @Model.Price.ToVnd()</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+        </div>
+    </div>
+</body>
 
 <div>
     <h4>Product</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ProductName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ProductName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Image)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
     </dl>
