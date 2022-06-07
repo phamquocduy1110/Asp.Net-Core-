@@ -44,7 +44,7 @@ namespace Buoi17_First.Areas.Admin.Controllers
                 {
                     FeatureId = g.Key.FeatureId,
                     FeatureName = g.Key.FeatureName,
-                    RoleNames = string.Join(", ", g.Select(frg => frg.Role.RoleName).ToList()),
+                    RoleNames = string.Join(", ", g.Select(frg => frg.Role!.RoleName).ToList()),
                     RoleIds = string.Join(", ", g.Select(frg => frg.RoleId).ToList()),
                 })
                 .ToList();
