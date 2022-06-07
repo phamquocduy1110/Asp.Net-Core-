@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Buoi17_First.Data;
+using Buoi17_First.ViewModels;
 
 namespace Buoi17_First.Areas.Admin.Controllers
 {
@@ -22,20 +23,34 @@ namespace Buoi17_First.Areas.Admin.Controllers
         public IActionResult AssignPermission()
         {
             var data = _context.FeatureRoles
-                .Include(fr => fr.Role)
-                .Include(fr => fr.Feature)
-                .OrderBy(fr => fr.FeatureId)
-                .ToList();
+                    .Include(fr => fr.Role)
+                    .Include(fr => fr.Feature)
+                    .OrderBy(fr => fr.FeatureId)
+                    .ToList();
 
             var roles = _context.Roles.ToList();
-
             ViewBag.Roles = new SelectList(roles, "RoleId", "RoleName");
-            var dataGroup = _context.FeatureRoles
-                .GroupBy(fr => new { fr.FeatureId, fr.Feature.FeatureName })
-                .Select(g => new { g.Key.FeatureId, g.Key.FeatureName, 
-                }).ToList();
 
-            return View(data);
+            var dataGroup = _context.FeatureRoles
+                .Include(fr => fr.Role)
+                    .Include(fr => fr.Feature)
+                    .ToList()
+                .GroupBy(fr => new
+                {
+                    fr.FeatureId,
+                    fr.Feature!.FeatureName
+                })
+                .Select(g => new FeatureRoleViewModel
+                {
+                    FeatureId = g.Key.FeatureId,
+                    FeatureName = g.Key.FeatureName,
+                    RoleNames = string.Join(", ", g.Select(frg => frg.Role.RoleName).ToList()),
+                    RoleIds = string.Join(", ", g.Select(frg => frg.RoleId).ToList()),
+                })
+                .ToList();
+
+            //return View(data);
+            return View(dataGroup);
         }
 
         // GET: Admin/Features

@@ -13,7 +13,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>E-commerce :: Product Page</h3>
+                            <h3>Product's details</h3>
                         </div>
 
                         <div class="title_right">
@@ -66,6 +66,7 @@
 
                                         <p>@Model.Description</p>
                                         <br />
+
                                         @{
                                             var proSizes = Model.ProductPrices.Select(p => p.SizeId).Distinct().ToList();
                                             var proColors = Model.ProductPrices.Select(p => p.ColorId).Distinct().ToList();
@@ -101,9 +102,22 @@
                                         </div>
                                         <br />
 
+                                        <h2>Category</h2>
+                                        <p>@Model.Category!.CategoryName</p>
+
+                                        <h2>Quantity</h2>
+                                        <p>@Model.Quantity</p>
+
                                         <div class="">
                                             <div class="product_price">
-                                                <h1 class="price">Price: @Model.Price.ToVnd()</h1>
+                                                <h1 id="product_price" class="price">Price: @Model.Price.ToVnd()</h1>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div>
+                                                <a asp-action="Edit" asp-route-id="@Model.ProductId" type="submit" class="btn btn-success">Edit</a>
+                                                <a asp-action="Index" type="button" class="btn btn-danger">Back to list</a>
                                             </div>
                                         </div>
                                     </div>
@@ -116,45 +130,20 @@
             <!-- /page content -->
         </div>
     </div>
-</body>
+    @section Scripts {
+    <script>
+        $(function () {
+            if ($("input.product-size").length > 0) {
+                const first_radio = $($("input.product-size")[0]);
+                first_radio.prop('checked', true);
+                $("#product_price").html(first_radio.data("price"));
+            }
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+            //set su kien click hien thi gia khi nhan vao size
+            $("input.product-size").click(function () {
+                $("#product_price").html($(this).data("price"));
+            });
+        });
+    </script>
+    }
+</body>

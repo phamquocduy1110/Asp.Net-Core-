@@ -168,13 +168,12 @@
     </div>
     @section Scripts {
     <script>
-                $(function () {
+        $(function () {
             if ($("input.product-size").length > 0) {
                 const first_radio = $($("input.product-size")[0]);
                 first_radio.prop('checked', true);
                 $("#product_price").html(first_radio.data("price"));
             }
-
 
             //set su kien click hien thi gia khi nhan vao size
             $("input.product-size").click(function () {
