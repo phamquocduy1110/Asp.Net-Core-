@@ -56,6 +56,7 @@
                             <form asp-action="Edit" enctype="multipart/form-data">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
                                 <input type="hidden" asp-for="ProductId" />
+                                <input type="hidden" name="Image" value="@Model.Image" />
                                 <div class="field item form-group">
                                     <label asp-for="CategoryId" class="col-form-label col-md-3 col-sm-3  label-align"></label>
                                     <div class="col-md-6 col-sm-6">
@@ -70,12 +71,11 @@
                                     </div>
                                 </div>
                                 <div class="field item form-group">
-                                    <label asp-for="Image" class="col-form-label col-md-3 col-sm-3  label-align"></label>
+                                    <label for="productImage" class="col-form-label col-md-3 col-sm-3  label-align"></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input asp-for="Image" type="file" onchange="readURL(this)" src="~/Hinh/Product/@Model.Image"/>
+                                        <input name="productImage" type="file" onchange="readURL(this)" src="~/Hinh/Product/@Model.Image" />
                                         <img id="pic" src="~/Hinh/Product/@Model.Image" width="600" />
                                         <img id="pic" />
-                                        <span asp-validation-for="Image" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="field item form-group">

@@ -28,8 +28,15 @@ namespace Buoi17_First.Areas.Admin.Controllers
                     .OrderBy(fr => fr.FeatureId)
                     .ToList();
 
+/*            var roles = _context.Roles.ToList();
+            ViewBag.Roles = new SelectList(roles, "RoleId", "RoleName");
+*/
             var roles = _context.Roles.ToList();
             ViewBag.Roles = new SelectList(roles, "RoleId", "RoleName");
+
+            var featues = _context.Features.ToList();
+            ViewBag.Features = new SelectList(featues, "FeatureId", "FeatureName");
+
 
             var dataGroup = _context.FeatureRoles
                 .Include(fr => fr.Role)
@@ -51,6 +58,42 @@ namespace Buoi17_First.Areas.Admin.Controllers
 
             //return View(data);
             return View(dataGroup);
+        }
+
+        [HttpPost]
+        [Area("Admin")]
+        public IActionResult AssignPermission(int feature, int[] roles)
+        {
+            try
+            {
+                var dsQuyen = _context.FeatureRoles.Where(p => p.FeatureId == feature);
+                // Remove all
+                foreach (var item in dsQuyen)
+                {
+                    _context.Remove(item);
+                }
+                // Re-assign
+                foreach (var roleId in roles)
+                {
+                    _context.Add(new FeatureRole
+                    {
+                        FeatureId = feature,
+                        RoleId = roleId,
+                    });
+                }
+                _context.SaveChanges();
+                return Json(new
+                {
+                    Success = true,
+                });
+
+            } catch (Exception ex)
+            {
+                return Json(new { 
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
         }
 
         // GET: Admin/Features

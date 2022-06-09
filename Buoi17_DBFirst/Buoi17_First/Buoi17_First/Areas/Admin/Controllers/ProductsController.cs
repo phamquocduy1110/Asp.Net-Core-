@@ -153,7 +153,7 @@ namespace Buoi17_First.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ProductId,ProductName,Image,Price,Description,CategoryId,Quantity")] Product product, IFormFile Image)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ProductId,ProductName,Image,Price,Description,CategoryId,Quantity")] Product product, IFormFile? productImage)
         {
             if (id != product.ProductId)
             {
@@ -164,15 +164,12 @@ namespace Buoi17_First.Areas.Admin.Controllers
             {
                 try
                 {
-                    if (Image != null)
+                    if (productImage != null)
                     {
-                        var imageUrl = MyTool.UploadFileToFolder(Image, "Product");
+                        var imageUrl = MyTool.UploadFileToFolder(productImage, "Product");
                         product.Image = imageUrl ?? MyTool.NoImage;
                     }
-                    else
-                    {
-                        product.Image = MyTool.NoImage;
-                    }
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }

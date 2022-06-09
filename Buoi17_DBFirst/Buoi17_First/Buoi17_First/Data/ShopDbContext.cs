@@ -44,6 +44,7 @@ namespace Buoi17_First.Data
             {
                 e.ToTable("Product");
                 e.HasKey(p => new { p.ProductId });
+                e.Property(e => e.Image).IsRequired(false);
                 e.Property(p => p.ProductName).IsRequired();
                 e.Property(p => p.Price).HasDefaultValue(0);
 
